@@ -1,0 +1,19 @@
+{
+  "name": "HBKapp-web",
+  "version": "0.0.1",
+  "description": "A PWA for the students of the HBKsaar, based on mithril-js. I use it as a learning project to improve my framework proficiency",
+  "main": "index.js",
+  "scripts": {
+    "test": "ospec",
+    "start": "webpack src/index.js bin/app.js -d --watch",
+    "build": "webpack src/index.js bin/app.js -p"
+  },
+  "keywords": [],
+  "author": "Fabian Mohr",
+  "dependencies": {
+    "mithril": "^1.1.6",
+    "node-waves": "^0.7.6",
+    "slideout": "^1.0.1",
+    "webpack": "^3.10.0"
+  }
+}

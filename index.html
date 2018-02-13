@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HBKapp</title>
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:300,400,400i,500,500i,700,800,900" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+
+    <!-- Google Sign-in -->
+    <!--<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>-->
+    <script src="./bin/mithril.min.js"></script>
+    <!--<meta name="google-signin-client_id" content="934253145013-m5c4tnhuhtect51h8k749sp0qfm5ojnj.apps.googleusercontent.com">-->
+<script>
+
+    var auth2;
+    var user = {};
+
+    var loadScriptAsync = function(uri){
+        return new Promise(function(resolve, reject) {
+            var tag = document.createElement('script');
+        tag.src = uri;
+        tag.async = true;
+        tag.onload = function() {
+            resolve();
+        };
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    });
+    }
+
+    function onSignIn(googleUser) {
+        //user = googleUser.getBasicProfile();
+        //document.body.classList.add("logged-in");
+        //console.log('ID: ' + user.getId()); // Do not send to your backend! Use an ID token instead.
+        //console.log('Name: ' + user.getName());
+        //console.log('Image URL: ' + user.getImageUrl());
+        //console.log('Email: ' + user.getEmail()); // This is null if the 'email' scope is not present.
+
+    }
+
+</script>
+
+</head>
+<body>
+
+<script src="bin/app.js"></script>
+</body>
+</html>
