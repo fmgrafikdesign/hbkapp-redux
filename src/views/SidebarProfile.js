@@ -1,101 +1,36 @@
 var m = require('mithril');
-var State = require("../models/State");
+var State = require('../models/State');
+var SidebarLogin = require('./SidebarLogin');
 
-var setupCompleted = false;
-
-function signOut() {
-    if (typeof gapi.auth2 === 'undefined') return;
-    //console.log(gapi);
-    auth2.signOut().then(function() {
-        //console.log('User signed out.');
-        document.body.classList.remove("logged-in");
-    });
-    m.redraw();
-}
-
-function googleLogin() {
-    auth2.signIn();
-}
-
-var scriptLoaded = loadScriptAsync('https://apis.google.com/js/platform.js');
-
-scriptLoaded.then(function() {
-    //console.log('google loaded');
-    onLoad();
-});
-
-function onLoad() {
-    gapi.load("auth2", function() {
-
-        gapi.auth2.init({
-            client_id: "934253145013-m5c4tnhuhtect51h8k749sp0qfm5ojnj.apps.googleusercontent.com",
-            scope: "email profile openid"
-        }).then(function() {
-            auth2 = gapi.auth2.getAuthInstance();
-            setupUser();
-
-            // Listen for future sign ins and outs
-            auth2.isSignedIn.listen(function (val) {
-                //console.log("Signin state changed to ", val);
-
-                // Update user object
-                if (val === false) {
-                    State.user = {};
-                } else {
-                    setupUser();
-                }
-
-                // Retrieve database info
-
-                m.redraw();
-            });
-
-            // Listen for user changes
-            auth2.currentUser.listen(function (user) {
-                //console.log("User now: " , user.getBasicProfile());
-                setupUser();
-            });
-        });
-
-    })
-}
-
-function setupUser() {
-    if(auth2.isSignedIn.get()) {
-        var currentuser = auth2.currentUser.get().getBasicProfile();
-        setUserData(currentuser);
-        document.body.classList.add("logged-in");
-        //console.log('User set up');
-
-        // Database stuff
-
-    } else {
-        //console.log('User not logged in');
+var profile = {
+    view: function () {
+        return [
+            // User image
+            m('.user-image-wrapper', m('img.img-fluid.user-image', {src: State.user.image})),
+            // User name
+            m('.user-info-wrapper', [
+                    m('.user-name-wrapper', m('span.user-name', State.user.name)),
+                    m('.user-studies-wrapper', m('span.user-studies', State.user.studies))
+                ]
+            )
+            // User Studiengang
+        ]
     }
 }
 
-function setUserData(user) {
-    State.user.id = user.getId();
-    State.user.name = user.getName();
-    State.user.firstName = user.getGivenName();
-    State.user.lastName = user.getFamilyName();
-    State.user.image = user.getImageUrl();
-    State.user.mail = user.getEmail();
-    //console.log('ID: ' + State.user.id); // Do not send to your backend! Use an ID token instead.
-    //console.log('Name: ' + State.user.name);
-    //console.log('Image URL: ' + State.user.image);
-    //console.log('Email: ' + State.user.mail); // This is null if the 'email' scope is not present.
-    m.redraw();
+var profile_container = {
+    view: function () {
+        return m('.user-profile-wrapper', m('.user-profile', [
+            m(profile), m(SidebarLogin)
+            ]
+        ))
+    }
 }
 
-// That was a lot of stuff for a simple login logout roundabout
-
 module.exports = {
-    view: function() {
+    view: function () {
         return [
-            //m('.g-signin', { onclick: setupSignin } ,''),
-            m('a.google-signin', { onclick: googleLogin } ,'Login with Google'),
-            m('a.google-logout', {onclick: signOut }, 'Ausloggen')
+            m(profile_container, m(profile))
         ]
     }
 }

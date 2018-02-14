@@ -1,6 +1,7 @@
 //vorlesungen
 var m = require('mithril');
 var State = require("../models/State");
+var SplitView = require('./SplitView');
 
 module.exports = {
     oninit: function() {
@@ -12,6 +13,6 @@ module.exports = {
         //console.log(State.user);
     },
     view: function() {
-        return m('p', ('Lectures ' + (State.activeUser() ? State.user : 'no User')));
+        return m(SplitView, [m('.wrapper-1', 'Part 1'), m('.wrapper-2', 'Part 2')]);
     }
 };

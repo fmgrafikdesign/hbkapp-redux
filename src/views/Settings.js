@@ -2,6 +2,6 @@
 
 module.exports = {
     view: function() {
-        return "I am the about module, reporting in"
+        return "I am the settings module, reporting in"
     }
 };

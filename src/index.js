@@ -4,7 +4,7 @@ var Modulplan = require('./views/Modulplan');
 var Information = require('./views/Information')
 var Layout = require ('./views/Layout');
 var Extern = require ('./views/Extern');
-var About = require ('./views/About');
+var Settings = require ('./views/Settings');
 
 m.route(document.body, "/vorlesungen", {
 
@@ -28,9 +28,9 @@ m.route(document.body, "/vorlesungen", {
             return m(Layout, m(Extern));
         }
     },
-    "/ueber": {
+    "/settings": {
         render: function() {
-            return m(Layout, m(About));
+            return m(Layout, m(Settings));
         }
     }
 

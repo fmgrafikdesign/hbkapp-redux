@@ -18,8 +18,8 @@ var sidebar_items = [
         href: "/extern"
     },
     {
-        name: "Über HBKapp Redux",
-        href: "/ueber"
+        name: "Einstellungen",
+        href: "/settings"
     }
 ]
 

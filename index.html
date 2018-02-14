@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HBKapp</title>
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:300,400,400i,500,500i,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
 
     <!-- Google Sign-in -->
@@ -37,6 +38,10 @@
         //console.log('Image URL: ' + user.getImageUrl());
         //console.log('Email: ' + user.getEmail()); // This is null if the 'email' scope is not present.
 
+    }
+
+    function addBodyClass(classname) {
+        document.body.classList.add(classname);
     }
 
 </script>
