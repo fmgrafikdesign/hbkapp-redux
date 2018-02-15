@@ -42,11 +42,11 @@ module.exports = {
     view: function (vnode) {
         return [
                 m(Sidebar),
-                m("main#panel.layout", [
+                m("main#panel.layout.parent-height", [
                     m('header', [
                         m('button.toggle-button', '☰')
                     ]),
-                    m("section", vnode.children)
+                    m("section.parent-height", vnode.children)
                 ])
             ]
     }

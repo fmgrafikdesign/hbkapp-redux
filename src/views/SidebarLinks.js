@@ -6,7 +6,7 @@ var sidebar_items = [
         href: "/vorlesungen"
     },
     {
-        name: "Modulplan",
+        name: "Mein Modulplan",
         href: "/modulplan"
     },
     {

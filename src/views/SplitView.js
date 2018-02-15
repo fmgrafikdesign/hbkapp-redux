@@ -1,11 +1,10 @@
 var m = require('mithril');
 
 module.exports = {
-    view: function(vnodes) {
-        return [
-            console.log(vnodes),
-            m('div.section-1',vnodes[0]),
-            m('div.section-2',vnodes[1])
-        ]
+    view: function (vnode) {
+        return m('section#split-view-controller.split-view-controller.parent-height', [
+            m('div.split-section.split-section-1', vnode.children[0]),
+            m('div.split-section.split-section-2', vnode.children[1])
+        ])
     }
 }
