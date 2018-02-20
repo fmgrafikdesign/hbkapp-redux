@@ -5,12 +5,18 @@ var Information = require('./views/Information')
 var Layout = require ('./views/Layout');
 var Extern = require ('./views/Extern');
 var Settings = require ('./views/Settings');
+var StateLectures = require ('./models/StateLectures');
 
 m.route(document.body, "/vorlesungen", {
 
     "/vorlesungen": {
         render: function() {
             return m(Layout, m(Lectures));
+        }
+    },
+    "/vorlesungen/:lid": {
+        render: function(param) {
+            return m(Layout, m(Lectures, { lid: param.attrs.lid }));
         }
     },
     "/modulplan": {

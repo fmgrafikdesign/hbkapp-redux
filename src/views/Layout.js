@@ -26,6 +26,7 @@ module.exports = {
             slide.toggle();
         });
 
+
         // Add class change listener
 
         // var links = document.getElementsByClassName('sidebar-link');
@@ -40,6 +41,8 @@ module.exports = {
 
     },
     view: function (vnode) {
+        //console.log("vnode view");
+        //console.log(vnode);
         return [
                 m(Sidebar),
                 m("main#panel.layout.parent-height", [

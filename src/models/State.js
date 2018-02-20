@@ -15,12 +15,12 @@ var State = {
     default_user : {
         name: "Vorname Nachname",
         image: defaultimage,
-        studies: "Studiengang"
+        studies: " "
     },
     user: {
         name: "Vorname Nachname",
         image: defaultimage,
-        studies: "Studiengang"
+        studies: " "
     },
 
     resetUser: function() {
@@ -29,24 +29,6 @@ var State = {
         State.user.studies = State.default_user.studies;
         console.log(State.default_user);
         //m.redraw();
-    },
-
-    lectures: [],
-    loadLectures: function() {
-
-
-        m.request({
-            method: "GET",
-            url: "https://hbkapp.fmgrafikdesign.de/vorlesungen.json"
-        }).then(function(result) {
-            State.lectures = result;
-
-            // Performance test for md5
-            var perf = performance.now();
-            var hash = md5(State.lectures);
-            console.log(performance.now() - perf);
-
-        })
     }
 };
 

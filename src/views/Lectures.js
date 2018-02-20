@@ -1,7 +1,6 @@
 //All Lectures Tab
 
 var m = require('mithril');
-var State = require("../models/State");
 var SplitView = require('./SplitView');
 var LecturesSummary = require('./LecturesSummary');
 var LectureDetail = require('./LectureDetail');
@@ -10,19 +9,18 @@ var LectureHeader = require('./LectureHeader');
 var lectures = [];
 
 module.exports = {
-    oninit: function () {
-        //console.log(State.user);
+
+    oncreate: function() {
+        document.title = "Vorlesungen" + appTitleExt;
+        console.log('oncreate');
     },
-    onupdate: function () {
-        //console.log('onupdate2');
-        //console.log(State.user);
-    },
-    view: function () {
+
+    view: function (vnode) {
         return [
             m(LectureHeader),
             m(SplitView, [
-                m('.wrapper-1', m(LecturesSummary)),
-                m('.wrapper-2', m('.flex-box', m(LectureDetail)))
+                m('.wrapper-1', m(LecturesSummary, {lid: vnode.attrs.lid})),
+                m('.wrapper-2', m('.flex-box', m(LectureDetail, {lid: vnode.attrs.lid})))
             ])
         ]
     }
