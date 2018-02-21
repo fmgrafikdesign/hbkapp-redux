@@ -8,6 +8,7 @@ button,hr,input{overflow:visible}progress,sub,sup{vertical-align:baseline}[type=
 
 html,body {
     height: 100%;
+    line-height: 1.3;
 }
 
 /* Waves */
@@ -227,7 +228,7 @@ body.logged-in .user-profile-wrapper:hover .google-logout {
 
 
 p {
-    margin: 0 0 1rem;
+    margin: 0 0 .75rem;
 }
 
 .google-auth-button:hover {
@@ -460,5 +461,47 @@ a, a:hover {
 .lecture-list-item-area-divider {
     border-color: #fff;
     border-top: 1px solid #bbb;
-    margin: .35rem 0;
+    margin: .75rem 0;
 }
+
+.lecture-list-item-apply-method, .lecture-list-item-deadline, .lecture-list-item-restriction, .lecture-list-item-weblink {
+    margin-bottom: 0.3rem;
+}
+
+.single-lecture a {
+    color: #c00000;
+}
+
+/* Timetable */
+
+.lecture-list-item-times {
+    width: 100%;
+    text-align: center;
+    display: block;
+}
+/*
+td, th {
+    border-right: 1px solid #bbb;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+th:last-of-type, td:last-of-type {
+    border-right: 0px solid;
+}
+*/
+
+.tr-timetable {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Icons */
+
+.single-lecture .icon {
+    width: 16px;
+    display: inline-block;
+    text-align: center;
+}
+

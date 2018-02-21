@@ -37,7 +37,7 @@ module.exports = {
                 m('hr.lecture-list-item-divider')
             ]),
 
-            m('p.lecture-list-item-quick-info', lecture.profs.join(', ') + ' | ' + lecture.typ),
+            m('p.lecture-list-item-quick-info', lecture.profs.join(', ') + ' | ' + lecture.typ.join(', ')),
             m('p.lecture-list-item-text-intro', lecture.excerpt || placeholder)
         ]);
     }
