@@ -1,4 +1,6 @@
 var m = require('mithril');
+var LecturesFilter = require('./LecturesFilter');
+var MyLecturesFilter = require('./MyLecturesFilter');
 
 var StateLectures = {
 
@@ -6,11 +8,55 @@ var StateLectures = {
         secondScreen: false
     },
 
-    oninit: function() {
+    oninit: function () {
         console.log('oninit StateLectures');
     },
 
     lectures: [],
+
+    // Gets called once the lectures are loaded successfully
+    loaded: function () {
+
+        // Tells the filter module the different studies it can filter for
+
+        var studies = ['Alle Studiengänge'];
+
+        //var perf = performance.now();
+
+        StateLectures.lectures.forEach(function (lecture) {
+            lecture.fachrichtung.forEach(function (fachrichtung) {
+                if (!studies.find(function (study) {
+                        return fachrichtung === study;
+                    })) {
+                    //studies.push(fachrichtung.substring(0, fachrichtung.indexOf('–') !== -1 ? fachrichtung.indexOf('–') : fachrichtung.length));
+                    studies.push(fachrichtung);
+                }
+            })
+        });
+
+        studies.sort();
+
+        //console.log(performance.now() - perf);
+        //console.log(studies);
+
+        // Assign the array to the studies of the filters
+        LecturesFilter.studies = studies;
+        MyLecturesFilter.studies = studies;
+
+        if (storageAvailable('localStorage')) {
+            var index = parseInt(localStorage.getItem('studyIndex'));
+            console.log(index);
+            if(index && studies.length >= index) {
+                LecturesFilter.setStudyIndex(index);
+            }
+
+            var sort = localStorage.getItem('sort');
+            if(sort) {
+                LecturesFilter.setSort(sort);
+            }
+        }
+
+    },
     loadLectures: function () {
 
         var requestLectures = function () {
@@ -21,15 +67,22 @@ var StateLectures = {
 
                 StateLectures.lectures = result;
                 // Cache lectures
-                localStorage.setItem('lectures', JSON.stringify(result));
+                if (storageAvailable('localStorage')) {
+                    localStorage.setItem('lectures', JSON.stringify(result));
+                }
 
-                m.request({
-                    method: "GET",
-                    url: "https://hbkapp.fmgrafikdesign.de/checksum.txt"
-                }).then(function (result) {
-                    // Cache checksum
-                    localStorage.setItem('checksum', result);
-                });
+                // Call loaded event
+                StateLectures.loaded();
+
+                if (storageAvailable('localStorage')) {
+                    m.request({
+                        method: "GET",
+                        url: "https://hbkapp.fmgrafikdesign.de/checksum.txt"
+                    }).then(function (result) {
+                        // Cache checksum
+                        localStorage.setItem('checksum', result);
+                    });
+                }
             })
         };
 
@@ -47,6 +100,7 @@ var StateLectures = {
                     if (result == checksum) {
                         console.log('lectures up to date');
                         StateLectures.lectures = JSON.parse(localStorage.getItem('lectures'));
+                        StateLectures.loaded();
                     }
                     else {
                         console.log('lectures not up to date, requesting...');
@@ -66,27 +120,27 @@ var StateLectures = {
     },
     activeLectureID: -1,
     activeLecture: {},
-    setActive: function(id) {
+    setActive: function (id) {
         // Remove the active-lecture class from the current DOM element
-        if(StateLectures.hasActive()) {
+        if (StateLectures.hasActive()) {
             document.getElementById(StateLectures.activeLectureID).classList.remove('active-lecture');
         }
 
         StateLectures.activeLectureID = id;
 
-        StateLectures.activeLecture = StateLectures.lectures.find( function(lecture) {
-             return lecture.id === id;
-        } );
+        StateLectures.activeLecture = StateLectures.lectures.find(function (lecture) {
+            return lecture.id === id;
+        });
         //console.log(StateLectures.activeLecture);
     },
-    hasActive: function() {
+    hasActive: function () {
         return StateLectures.activeLectureID !== -1;
     },
-    getLecture: function(id) {
+    getLecture: function (id) {
         //console.log('getting lecture with id ' + id);
-        var lecture = StateLectures.lectures.find( function(lecture) {
+        var lecture = StateLectures.lectures.find(function (lecture) {
             return lecture.id === parseInt(id);
-        } );
+        });
         //console.log(lecture);
         return lecture;
     }

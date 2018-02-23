@@ -2,8 +2,12 @@ var m = require('mithril');
 
 var sidebar_items = [
     {
-        name: "Vorlesungen",
+        name: "Vorlesungsverzeichnis",
         href: "/vorlesungen"
+    },
+    {
+        name: "Meine Vorlesungen",
+        href: "/meine-vorlesungen"
     },
     {
         name: "Mein Modulplan",
@@ -36,7 +40,7 @@ module.exports = {
     },
     view: function() {
         return sidebar_items.map(function(item) {
-                return m("a.sidebar-link", {href: item.href, oncreate: m.route.link, class: 'waves-button waves-light waves-block ' + (m.route.get() === item.href ? 'active' : '')}, item.name);
+                return m("a.sidebar-link", {href: item.href, oncreate: m.route.link, class: 'waves-button waves-light waves-block ' + (m.route.get().indexOf(item.href) >= 0 ? 'active' : '')}, item.name);
             });
     }
 }

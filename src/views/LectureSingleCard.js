@@ -50,9 +50,9 @@ module.exports = {
         var table_body = '<tr class="tr-timetable">';
         lecture.dates.forEach(function(date, i) {
             if(date) {
-                table_body += '<td class="date-'+i+'"><strong>' + wochentage[i] + '</strong><br>' + date + '</td>';
+                table_body += '<td class="date-'+i+'"><strong>' + wochentage[i] + '<span class="hide-desktop">: </span></strong><span class="hide-desktop"> ' + date + '</span><span class="hide-mobile"><br>' + date + '</span></td>';
             } else {
-                table_body += '<td class="date-\'+i+\'"><strong>' + wochentage[i] + '</strong><br> </td>';
+                table_body += '<td class="date-'+i+' hide-mobile"><strong>' + wochentage[i] + '</strong><br> </td>';
             }
         });
 

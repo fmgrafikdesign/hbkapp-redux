@@ -77,11 +77,22 @@ html,body {
 html, body {
     font-family: 'Fira Sans', 'Helvetica', sans-serif;
     font-family: 'PT Serif', 'Helvetica', sans-serif;
-    font-size: 15px;
+    font-size: 13px;
     background-color: #f0f0fa;
     padding: 0;
     margin: 0;
 }
+
+@media screen and (min-width: 768px) {
+    html,body {
+        font-size: 15px;
+    }
+}
+
+a:hover, a:active, a:focus {
+    outline: 0;
+}
+
 
 /* Slideout */
 
@@ -233,6 +244,7 @@ p {
 
 .google-auth-button:hover {
     background-color: #ddd;
+    color: #000;
 }
 
 .google-auth-button {
@@ -376,6 +388,9 @@ p {
 
 .lectures-header {
     border-bottom: 1px solid #ccc;
+    padding: .5rem 1rem;
+    /* background-image: linear-gradient(to right, #868f96 0%, #596164 100%); */
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
 }
 
 .lecture-list-item-wrapper {
@@ -407,9 +422,15 @@ a, a:hover {
 }
 
 .single-lecture {
-    padding: 2.75rem;
+    padding: 1.5rem;
     box-shadow: none;
     cursor: inherit;
+}
+
+@media screen and (min-width: 764px) {
+    .single-lecture {
+        padding: 2.75rem;
+    }
 }
 
 .single-lecture:hover {
@@ -505,3 +526,38 @@ th:last-of-type, td:last-of-type {
     text-align: center;
 }
 
+.hide-mobile {
+    display: none;
+}
+
+/* Filtern */
+
+.lectures-filter-search, .lectures-filter-studies, .lectures-filter-sort {
+    height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .hide-desktop {
+        display: none;
+    }
+
+    .hide-mobile {
+        display: initial;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .lectures-filter {
+        display: flex;
+        align-items: stretch;
+        align-content: stretch;
+        height: 34px;
+    }
+
+    .filter {
+        margin-right: 10px;
+        border: 1px solid #ddd;
+        max-width: 200px;
+        padding: 0.25rem .4rem;
+    }
+}

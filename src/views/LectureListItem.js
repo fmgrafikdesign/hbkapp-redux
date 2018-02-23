@@ -25,6 +25,7 @@ module.exports = {
             href: '/vorlesungen/' + lecture.id ,
             class: 'lecture-list-item' + ((parseInt(vnode.attrs.lid) === lecture.id) ? ' active-lecture' : ''),
             oncreate: m.route.link,
+            onupdate: m.route.link,
             id: lecture.id, onclick: function () {
                 //StateLectures.setActive(lecture.id);
                 document.getElementById('split-view-controller').classList.add('second-screen');

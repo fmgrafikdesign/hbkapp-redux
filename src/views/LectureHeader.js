@@ -3,10 +3,10 @@ var LectureSwitch = require('./LectureSwitch');
 var LectureFilters = require('./LectureFilters');
 
 module.exports = {
-    view: function() {
+    view: function(vnode) {
         return m('.lectures-header', [
-            m(LectureSwitch),
-            m(LectureFilters)
+            // filter: The filter model that should be used for the lectures
+            m(LectureFilters, {filter: vnode.attrs.filter})
         ])
     }
 };
