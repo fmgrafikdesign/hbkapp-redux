@@ -77,7 +77,7 @@ html,body {
 html, body {
     font-family: 'Fira Sans', 'Helvetica', sans-serif;
     font-family: 'PT Serif', 'Helvetica', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     background-color: #f0f0fa;
     padding: 0;
     margin: 0;
@@ -386,6 +386,11 @@ p {
     align-self: center;
 }
 
+.lecture-list {
+    overflow-y: auto;
+    height: calc(100% - 50px);
+}
+
 .lectures-header {
     border-bottom: 1px solid #ccc;
     padding: .5rem 1rem;
@@ -422,14 +427,14 @@ a, a:hover {
 }
 
 .single-lecture {
-    padding: 1.5rem;
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
     box-shadow: none;
     cursor: inherit;
 }
 
 @media screen and (min-width: 764px) {
     .single-lecture {
-        padding: 2.75rem;
+        padding: 0 2.75rem 2.75rem 2.75rem;
     }
 }
 
@@ -446,6 +451,7 @@ a, a:hover {
 
 .single-lecture  .lecture-list-item-title {
     font-size: 1.8rem;
+    margin-top: 0;
 }
 
 .lecture-list-item-subtitle {
@@ -546,6 +552,10 @@ th:last-of-type, td:last-of-type {
     }
 }
 
+.filter {
+    max-width: 100%;
+}
+
 @media screen and (min-width: 768px) {
     .lectures-filter {
         display: flex;
@@ -560,4 +570,56 @@ th:last-of-type, td:last-of-type {
         max-width: 200px;
         padding: 0.25rem .4rem;
     }
+
+    .parent-height-desktop {
+        height: 100%;
+    }
+}
+
+.toggle-button {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    color: #fff;
+    font-size: 3rem;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    z-index: 10;
+    border: 0 solid;
+    transition: all 0.25s cubic-bezier(.25,.8,.25,1);
+}
+
+.toggle-button:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.toggle-button:active {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
+}
+
+.single-nav {
+    font-size: 2.5rem;
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+@media screen and (min-width: 768px) {
+    .single-nav {
+        border-bottom: 0px solid;
+    }
+}
+
+.single-nav-back-button {
+    padding: .25rem 1.5rem;
+    cursor: pointer;
+}
+
+.single-nav-fav-button {
+    margin-left: auto;
+    padding: 0.25rem .75rem;
+    cursor: pointer;
 }

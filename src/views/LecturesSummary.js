@@ -1,6 +1,8 @@
 var m = require('mithril');
 var StateLectures = require('../models/StateLectures');
 var LectureListItem = require('./LectureListItem');
+var LectureHeader = require('./LectureHeader');
+var LecturesFilter = require('../models/LecturesFilter');
 
 if (StateLectures.lectures.length === 0) {
     StateLectures.loadLectures();
@@ -13,8 +15,8 @@ module.exports = {
             return "No lectures found";
         }
         //console.log(StateLectures.lectures);
-        return vnode.attrs.lectures.map(function (lecture) {
-            return m('.lecture-list-item-wrapper', m(LectureListItem, {lid: vnode.attrs.lid, lecture: lecture}));
-        });
+        return [m(LectureHeader, { filter: LecturesFilter }), m('.lecture-list', vnode.attrs.lectures.map(function (lecture) {
+            return m('.lecture-list-item-wrapper', m(LectureListItem, {lid: vnode.attrs.lid, lecture: lecture}))
+        }))]
     }
 };

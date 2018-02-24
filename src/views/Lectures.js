@@ -23,17 +23,15 @@ module.exports = {
 
         // Filter them
 
-        // Let the filter model handle the filtering
+        // Let the filter model handle the filtering and sorting
         lectures = LecturesFilter.filter(lectures);
-        console.log(LecturesFilter.sortLectures);
         lectures.sort(LecturesFilter.sortLectures);
         //console.log(performance.now() - perf);
 
 
         return [
-            m(LectureHeader, { filter: LecturesFilter }),
             m(SplitView, [
-                m('.wrapper-1', m(LecturesSummary, {lid: vnode.attrs.lid, lectures: lectures})),
+                m('.wrapper-1.parent-height-desktop', m(LecturesSummary, {lid: vnode.attrs.lid, lectures: lectures})),
                 m('.wrapper-2', m('div', m(LectureDetail, {lid: vnode.attrs.lid})))
             ])
         ]

@@ -11,6 +11,7 @@
   "keywords": [],
   "author": "Fabian Mohr",
   "dependencies": {
+    "firebase": "^4.10.1",
     "mithril": "^1.1.6",
     "node-waves": "^0.7.6",
     "slideout": "^1.0.1",

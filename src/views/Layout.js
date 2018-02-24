@@ -13,16 +13,17 @@ var Slideout = require('slideout');
 module.exports = {
     // Add sidebar functionality
 
-    oncreate: function() {
+    oncreate: function () {
         var slide = new Slideout({
             'panel': document.getElementById('panel'),
             'menu': document.getElementById('menu'),
             'padding': 256,
-            'tolerance': 70
+            'tolerance': 70,
+            'touch': false
         });
 
         // Toggle button
-        document.querySelector('.toggle-button').addEventListener('click', function() {
+        document.querySelector('.toggle-button').addEventListener('click', function () {
             slide.toggle();
         });
 
@@ -38,19 +39,16 @@ module.exports = {
         // }
 
 
-
     },
     view: function (vnode) {
         //console.log("vnode view");
         //console.log(vnode);
         return [
-                m(Sidebar),
-                m("main#panel.layout.parent-height", [
-                    m('header', [
-                        m('button.toggle-button', '☰')
-                    ]),
-                    m("section.parent-height", vnode.children)
-                ])
-            ]
+            m(Sidebar),
+            m('button.toggle-button', m('i.icon.ion-navicon')),
+            m("main#panel.layout.parent-height", [
+                m("section.parent-height", vnode.children)
+            ])
+        ]
     }
 }
