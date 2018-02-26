@@ -13,6 +13,7 @@ var StateLectures = {
     },
 
     lectures: [],
+    myLectures: [],
 
     // Gets called once the lectures are loaded successfully
     loaded: function () {
@@ -45,7 +46,7 @@ var StateLectures = {
 
         if (storageAvailable('localStorage')) {
             var index = parseInt(localStorage.getItem('studyIndex'));
-            console.log(index);
+            /* console.log(index); */
             if(index && studies.length >= index) {
                 LecturesFilter.setStudyIndex(index);
             }
@@ -136,13 +137,39 @@ var StateLectures = {
     hasActive: function () {
         return StateLectures.activeLectureID !== -1;
     },
-    getLecture: function (id) {
-        //console.log('getting lecture with id ' + id);
+    getLecture: function (lid) {
+        //console.log('getting lecture with lid ' + lid);
         var lecture = StateLectures.lectures.find(function (lecture) {
-            return lecture.id === parseInt(id);
+            return lecture.id === parseInt(lid);
         });
         //console.log(lecture);
+
+        //TODO if lecture is not found in currently available lectures, request from database
+
         return lecture;
+    },
+
+    updateMyLectures: function(ids) {
+        StateLectures.myLectures = [];
+
+        if(!ids) return ;
+
+        Object.keys(ids).forEach(function(key) {
+            //console.log(key);
+            StateLectures.myLectures.push(StateLectures.getLecture(key));
+        });
+        //console.log('updated my lectures:');
+        //console.log(StateLectures.myLectures);
+        m.redraw();
+    },
+    isFavorite: function(lid) {
+        //console.log('trying to find lid in favorites:');
+        var result = StateLectures.myLectures.find(function(lecture) {
+            if(!lecture.id) return false;
+            return lecture.id === parseInt(lid);
+        });
+        //console.log(result);
+        return result;
     }
 };
 

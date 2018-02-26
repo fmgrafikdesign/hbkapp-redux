@@ -1,28 +1,12 @@
+require('./awesomplete.min.js');
 var m = require("mithril");
 var Lectures = require("./views/Lectures");
-var Modulplan = require('./views/Modulplan');
+var Modules = require('./views/Modules');
 var Information = require('./views/Information')
 var Layout = require ('./views/Layout');
 var Extern = require ('./views/Extern');
 var Settings = require ('./views/Settings');
 var MyLectures = require('./views/MyLectures');
-var firebase = require('firebase/app');
-require('firebase/database');
-
-/* Initialize firebase */
-
-var config = {
-    apiKey: "AIzaSyCb3hKE4Qc-fwJp4Iff15t1uKvo81RQZ98",
-    authDomain: "hbkapp-redux-1518314906354.firebaseapp.com",
-    databaseURL: "https://hbkapp-redux-1518314906354.firebaseio.com",
-    projectId: "hbkapp-redux-1518314906354",
-    storageBucket: "hbkapp-redux-1518314906354.appspot.com",
-    messagingSenderId: "934253145013"
-};
-firebase.initializeApp(config);
-
-var database = firebase.database();
-
 
 m.route(document.body, "/vorlesungen", {
 
@@ -63,7 +47,7 @@ m.route(document.body, "/vorlesungen", {
             removeBodyClass('second-screen');
         },
         render: function() {
-            return m(Layout, m(Modulplan));
+            return m(Layout, m(Modules));
         }
     },
     "/informationen": {

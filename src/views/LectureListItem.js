@@ -21,8 +21,16 @@ var placeholder = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed 
 module.exports = {
     view: function (vnode) {
         var lecture = vnode.attrs.lecture;
+        if(!lecture) return;
+
+        var prefix = '/vorlesungen/';
+
+        if(vnode.attrs.ismylectures) {
+            prefix = '/meine-vorlesungen/'
+        }
+
         return m('a', {
-            href: '/vorlesungen/' + lecture.id ,
+            href: prefix + lecture.id ,
             class: 'lecture-list-item' + ((parseInt(vnode.attrs.lid) === lecture.id) ? ' active-lecture' : ''),
             oncreate: m.route.link,
             onupdate: m.route.link,

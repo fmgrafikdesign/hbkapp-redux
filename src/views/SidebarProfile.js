@@ -1,16 +1,16 @@
 var m = require('mithril');
-var State = require('../models/State');
+var StateUser = require('../models/StateUser');
 var SidebarLogin = require('./SidebarLogin');
 
 var profile = {
     view: function () {
         return [
             // User image
-            m('.user-image-wrapper', m('img.img-fluid.user-image', {src: State.user.image})),
+            m('.user-image-wrapper', m('img.img-fluid.user-image', {src: StateUser.image})),
             // User name
             m('.user-info-wrapper', [
-                    m('.user-name-wrapper', m('span.user-name', State.user.name)),
-                    m('.user-studies-wrapper', m('span.user-studies', State.user.studies))
+                    m('.user-name-wrapper', m('span.user-name', StateUser.name)),
+                    m('.user-studies-wrapper', m('span.user-studies', StateUser.studies))
                 ]
             )
             // User Studiengang

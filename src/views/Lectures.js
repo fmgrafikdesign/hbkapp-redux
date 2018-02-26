@@ -4,7 +4,6 @@ var m = require('mithril');
 var SplitView = require('./SplitView');
 var LecturesSummary = require('./LecturesSummary');
 var LectureDetail = require('./LectureDetail');
-var LectureHeader = require('./LectureHeader');
 var StateLectures = require('../models/StateLectures');
 var LecturesFilter = require('../models/LecturesFilter');
 
@@ -32,7 +31,7 @@ module.exports = {
         return [
             m(SplitView, [
                 m('.wrapper-1.parent-height-desktop', m(LecturesSummary, {lid: vnode.attrs.lid, lectures: lectures})),
-                m('.wrapper-2', m('div', m(LectureDetail, {lid: vnode.attrs.lid})))
+                m('.wrapper-2', m('.parent-height', m(LectureDetail, {lid: vnode.attrs.lid})))
             ])
         ]
     }

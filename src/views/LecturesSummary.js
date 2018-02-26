@@ -16,7 +16,7 @@ module.exports = {
         }
         //console.log(StateLectures.lectures);
         return [m(LectureHeader, { filter: LecturesFilter }), m('.lecture-list', vnode.attrs.lectures.map(function (lecture) {
-            return m('.lecture-list-item-wrapper', m(LectureListItem, {lid: vnode.attrs.lid, lecture: lecture}))
+            return m('.lecture-list-item-wrapper', m(LectureListItem, {lid: vnode.attrs.lid, lecture: lecture, ismylectures: vnode.attrs.ismylectures}))
         }))]
     }
 };
