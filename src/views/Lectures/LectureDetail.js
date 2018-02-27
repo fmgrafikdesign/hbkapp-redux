@@ -1,8 +1,8 @@
 var m = require('mithril');
-var StateLectures = require('../models/StateLectures');
+var StateLectures = require('../../models/StateLectures');
 var LectureSingleCard = require('./LectureSingleCard');
-var firebase = require('../models/StateFirebase');
-var StateUser = require('../models/StateUser');
+var firebase = require('../../models/StateFirebase');
+var StateUser = require('../../models/StateUser');
 
 var activeLecture = {
     view: function (vnode) {
@@ -28,8 +28,13 @@ var singlenav = {
             m('a.hide-desktop.single-nav-back-button', {href: '/vorlesungen', oncreate: m.route.link}, m('i.icon.ion-android-arrow-back')),
             m('a.single-nav-fav-button', {
                     onclick: function () {
-                        // TODO Actual functionality
                         var lid = vnode.attrs.lid;
+
+                        // If the user is not logged in, prompt him to
+                        if(!StateUser.loggedIn) {
+                            firebase.login();
+                            return;
+                        }
 
                         var element = this;
                         element.classList.add('clicked');

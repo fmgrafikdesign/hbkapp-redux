@@ -1,5 +1,5 @@
 var m = require('mithril');
-var StateLectures = require('../models/StateLectures');
+var StateLectures = require('../../models/StateLectures');
 /*
 
 [titel]
@@ -21,17 +21,18 @@ var placeholder = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed 
 module.exports = {
     view: function (vnode) {
         var lecture = vnode.attrs.lecture;
+        var isfavorite = StateLectures.isFavorite(lecture.id);
         if(!lecture) return;
 
         var prefix = '/vorlesungen/';
 
-        if(vnode.attrs.ismylectures) {
+        if(vnode.attrs.isMyLectures) {
             prefix = '/meine-vorlesungen/'
         }
 
         return m('a', {
             href: prefix + lecture.id ,
-            class: 'lecture-list-item' + ((parseInt(vnode.attrs.lid) === lecture.id) ? ' active-lecture' : ''),
+            class: 'lecture-list-item' + ((parseInt(vnode.attrs.lid) === lecture.id) ? ' active-lecture' : '') + (isfavorite ? ' favorite' : ''),
             oncreate: m.route.link,
             onupdate: m.route.link,
             id: lecture.id, onclick: function () {
@@ -40,6 +41,7 @@ module.exports = {
                 StateLectures.state.secondScreen = true;
             }
         }, [
+            (isfavorite && !vnode.attrs.isMyLectures) ? m('.lecture-list-item-favorite-icon.icon.ion-android-star') : '',
             m('.lecture-list-item-header', [
                 m('h2.lecture-list-item-title', lecture.titel),
                 m('p.lecture-list-item-subtitle', lecture.untertitel),

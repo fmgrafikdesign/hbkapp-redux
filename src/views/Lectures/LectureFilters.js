@@ -4,6 +4,7 @@ module.exports = {
     view: function (vnode) {
 
         var filter = vnode.attrs.filter;
+        //console.log(filter);
 
         var studies = filter.studies;
 

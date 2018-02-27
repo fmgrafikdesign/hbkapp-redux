@@ -1,6 +1,7 @@
 var m = require('mithril');
 var LecturesFilter = require('./LecturesFilter');
 var MyLecturesFilter = require('./MyLecturesFilter');
+var ModulesDetail = require('../views/MyModules/ModulesDetail');
 
 var StateLectures = {
 
@@ -18,8 +19,13 @@ var StateLectures = {
     // Gets called once the lectures are loaded successfully
     loaded: function () {
 
-        // Tells the filter module the different studies it can filter for
+        // Update available lectures for autocomplete
+        ModulesDetail.updateLectureTitles(StateLectures.lectures);
 
+        // Info for loading spinners etc that we received data
+        StateLectures.receivedLectures = true;
+
+        // Tells the filter module the different studies it can filter for
         var studies = ['Alle Studiengänge'];
 
         //var perf = performance.now();
@@ -151,13 +157,19 @@ var StateLectures = {
 
     updateMyLectures: function(ids) {
         StateLectures.myLectures = [];
+        StateLectures.receivedMyLectures = true;
 
-        if(!ids) return ;
+
+        if(!ids) {
+            m.redraw();
+            return ;
+        }
 
         Object.keys(ids).forEach(function(key) {
             //console.log(key);
             StateLectures.myLectures.push(StateLectures.getLecture(key));
         });
+
         //console.log('updated my lectures:');
         //console.log(StateLectures.myLectures);
         m.redraw();
@@ -170,7 +182,10 @@ var StateLectures = {
         });
         //console.log(result);
         return result;
-    }
+    },
+
+    receivedLectures: false,
+    receivedMyLectures: false
 };
 
 module.exports = StateLectures;

@@ -1,12 +1,18 @@
-require('./awesomplete.min.js');
 var m = require("mithril");
-var Lectures = require("./views/Lectures");
-var Modules = require('./views/Modules');
+var Lectures = require("./views/Lectures/Lectures");
+var Modules = require('./views/MyModules/Modules');
 var Information = require('./views/Information')
 var Layout = require ('./views/Layout');
 var Extern = require ('./views/Extern');
 var Settings = require ('./views/Settings');
-var MyLectures = require('./views/MyLectures');
+/* var MyLectures = require('./views/MyLectures'); */
+var StateLectures = require('./models/StateLectures');
+var LecturesFilter = require('./models/LecturesFilter');
+var MyLecturesFilter = require('./models/MyLecturesFilter');
+
+if (StateLectures.lectures.length === 0) {
+    StateLectures.loadLectures();
+}
 
 m.route(document.body, "/vorlesungen", {
 
@@ -15,7 +21,7 @@ m.route(document.body, "/vorlesungen", {
             removeBodyClass('second-screen');
         },
         render: function() {
-            return m(Layout, m(Lectures));
+            return m(Layout, m(Lectures, { lectures: StateLectures.lectures, filter: LecturesFilter}));
         }
     },
     "/vorlesungen/:lid": {
@@ -23,7 +29,7 @@ m.route(document.body, "/vorlesungen", {
             addBodyClass('second-screen');
         },
         render: function(param) {
-            return m(Layout, m(Lectures, { lid: param.attrs.lid }));
+            return m(Layout, m(Lectures, { lid: param.attrs.lid, lectures: StateLectures.lectures, filter: LecturesFilter }));
         }
     },
     "/meine-vorlesungen": {
@@ -31,7 +37,7 @@ m.route(document.body, "/vorlesungen", {
             removeBodyClass('second-screen');
         },
         render: function() {
-            return m(Layout, m(MyLectures));
+            return m(Layout, m(Lectures, { lectures: StateLectures.myLectures, filter: MyLecturesFilter}));
         }
     },
     "/meine-vorlesungen/:lid": {
@@ -39,7 +45,7 @@ m.route(document.body, "/vorlesungen", {
             addBodyClass('second-screen');
         },
         render: function(param) {
-            return m(Layout, m(MyLectures, { lid: param.attrs.lid }));
+            return m(Layout, m(Lectures, { lid: param.attrs.lid, lectures: StateLectures.myLectures, filter: MyLecturesFilter }));
         }
     },
     "/modulplan": {

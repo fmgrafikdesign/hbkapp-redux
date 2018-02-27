@@ -2,6 +2,7 @@ var m = require('mithril');
 var State = require("../models/StateUser");
 
 var StateFirebase = require('../models/StateFirebase');
+var LoginButton = require('./LoginButton');
 
 var setupCompleted = false;
 
@@ -9,52 +10,6 @@ var setupCompleted = false;
 
 /* Firebase setup */
 
-var firebase = StateFirebase.firebase;
-
-var provider = new firebase.auth.GoogleAuthProvider();
-firebase.auth().useDeviceLanguage();
-
-function googleLogin() {
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-        //console.log('results are in:');
-        var token = result.credential.accessToken;
-        //console.log(token);
-        var user = result.user;
-        //console.log(user);
-
-    }).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-
-        console.log('error:');
-        console.log(errorCode, errorMessage);
-    })
-}
-
-function signOut() {
-    firebase.auth().signOut().then(function() {
-        // Sign-out successful.
-        document.body.classList.remove("logged-in");
-
-    }).catch(function(error) {
-        // An error happened.
-    });
-    m.redraw();
-}
-
-function isUserEqual(googleUser, firebaseUser) {
-    if (firebaseUser) {
-        var providerData = firebaseUser.providerData;
-        for (var i = 0; i < providerData.length; i++) {
-            if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-                providerData[i].uid === googleUser.getBasicProfile().getId()) {
-                // We don't need to reauth the Firebase connection.
-                return true;
-            }
-        }
-    }
-    return false;
-}
 
 /* Old google sign-in api */
 /*
@@ -157,8 +112,8 @@ module.exports = {
     view: function() {
         return m('.auth-links', [
             //m('.g-signin', { onclick: setupSignin } ,''),
-            m('a.google-auth-button.google-login', { onclick: googleLogin } ,'Login with Google'),
-            m('a.google-auth-button.google-logout', {onclick: signOut }, 'Ausloggen')
+            m(LoginButton),
+            m('a.google-auth-button.google-logout', {onclick: StateFirebase.logout }, 'Ausloggen')
         ])
     }
 }
