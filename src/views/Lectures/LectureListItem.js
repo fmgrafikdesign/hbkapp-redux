@@ -32,24 +32,25 @@ module.exports = {
 
         return m('a', {
             href: prefix + lecture.id ,
-            class: 'lecture-list-item' + ((parseInt(vnode.attrs.lid) === lecture.id) ? ' active-lecture' : '') + (isfavorite ? ' favorite' : ''),
+            class: 'list-item' + ((parseInt(vnode.attrs.lid) === lecture.id) ? ' active-lecture' : '') + (isfavorite ? ' favorite' : ''),
             oncreate: m.route.link,
             onupdate: m.route.link,
-            id: lecture.id, onclick: function () {
+            id: lecture.id,
+            onclick: function () {
                 //StateLectures.setActive(lecture.id);
                 document.getElementById('split-view-controller').classList.add('second-screen');
                 StateLectures.state.secondScreen = true;
             }
         }, [
-            (isfavorite && !vnode.attrs.isMyLectures) ? m('.lecture-list-item-favorite-icon.icon.ion-android-star') : '',
-            m('.lecture-list-item-header', [
-                m('h2.lecture-list-item-title', lecture.titel),
-                m('p.lecture-list-item-subtitle', lecture.untertitel),
-                m('hr.lecture-list-item-divider')
+            (isfavorite && !vnode.attrs.isMyLectures) ? m('.list-item-favorite-icon.icon.ion-android-star') : '',
+            m('.list-item-header', [
+                m('h2.list-item-title', lecture.titel),
+                m('p.list-item-subtitle', lecture.untertitel),
+                m('hr.list-item-divider')
             ]),
 
-            m('p.lecture-list-item-quick-info', lecture.profs.join(', ') + ' | ' + lecture.typ.join(', ')),
-            m('p.lecture-list-item-text-intro', lecture.excerpt || placeholder)
+            m('p.list-item-quick-info', lecture.profs.join(', ') + ' | ' + lecture.typ.join(', ')),
+            m('p.list-item-text-intro', lecture.excerpt || placeholder)
         ]);
     }
 };

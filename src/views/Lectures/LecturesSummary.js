@@ -31,7 +31,7 @@ module.exports = {
 
         //console.log(StateLectures.lectures);
         return [m(LectureHeader, { filter: vnode.attrs.filter }), m('.lecture-list', vnode.attrs.lectures.map(function (lecture) {
-            return m('.lecture-list-item-wrapper', m(LectureListItem, {lid: vnode.attrs.lid, lecture: lecture, isMyLectures: vnode.attrs.filter.isMyLectures}))
+            return m('.list-item-wrapper', m(LectureListItem, {lid: vnode.attrs.lid, lecture: lecture, isMyLectures: vnode.attrs.filter.isMyLectures}))
         }))]
     }
 };

@@ -71,53 +71,53 @@ module.exports = {
             fulltext.push(m('p', text));
         });
 
-        var fulltext_object = m('p.lecture-list-item-text', fulltext);
+        var fulltext_object = m('p.list-item-text', fulltext);
 
 
-        return m('.lecture-list-item.single-lecture ' , [
-            m('.lecture-list-item-header', [
-                m('h2.lecture-list-item-title', lecture.titel),
-                m('p.lecture-list-item-subtitle', lecture.untertitel),
-                m('hr.lecture-list-item-divider')
+        return m('.list-item.single-lecture ' , [
+            m('.list-item-header', [
+                m('h2.list-item-title', lecture.titel),
+                m('p.list-item-subtitle', lecture.untertitel),
+                m('hr.list-item-divider')
             ] ),
 
             // Who does it
-            m('p.lecture-list-item-quick-info', [ m('i.icon.ion-person'), ' ' + lecture.profs.join(', ')]),
-            m('hr.lecture-list-item-area-divider'),
+            m('p.list-item-quick-info', [ m('i.icon.ion-person'), ' ' + lecture.profs.join(', ')]),
+            m('hr.list-item-area-divider'),
 
             // Allowed studies
-            m('p.lecture-list-item-studies', m.trust(lecture.typ.join(', ') + ' für Studiengänge:<br>' + lecture.fachrichtung.join(', '))),
-            m('hr.lecture-list-item-area-divider'),
+            m('p.list-item-studies', m.trust(lecture.typ.join(', ') + ' für Studiengänge:<br>' + lecture.fachrichtung.join(', '))),
+            m('hr.list-item-area-divider'),
 
             // Date information
-            m('p.lecture-list-item-dates',  [m('i.icon.ion-calendar'), ' Beginn: ' + lecture.datum_anfang + ' | Ende: ' + lecture.datum_ende + datum_sonstiges]),
+            m('p.list-item-dates',  [m('i.icon.ion-calendar'), ' Beginn: ' + lecture.datum_anfang + ' | Ende: ' + lecture.datum_ende + datum_sonstiges]),
             // Time information
-            m('table.lecture-list-item-times', m.trust(table)),
-            m('hr.lecture-list-item-area-divider'),
+            m('table.list-item-times', m.trust(table)),
+            m('hr.list-item-area-divider'),
 
 
             // Location information
-            m('p.lecture-list-item-location', [m('i.icon.ion-location'), ' ' + lecture.orte.join(', ')]),
-            m('hr.lecture-list-item-area-divider'),
+            m('p.list-item-location', [m('i.icon.ion-location'), ' ' + lecture.orte.join(', ')]),
+            m('hr.list-item-area-divider'),
 
             // How many cp and how to get them
-            m('p.lecture-list-item-proof', lecture.cp + ' CP durch: ' + lecture.leistungskontrolle.join(', ')),
-            m('hr.lecture-list-item-area-divider'),
+            m('p.list-item-proof', lecture.cp + ' CP durch: ' + lecture.leistungskontrolle.join(', ')),
+            m('hr.list-item-area-divider'),
 
             // Text
             fulltext_object,
-            m('hr.lecture-list-item-area-divider'),
+            m('hr.list-item-area-divider'),
 
             // How to apply
-            lecture.anmeldeverfahren !== '' ? (m('p.lecture-list-item-apply-method', [m('i.icon.ion-checkmark'), m.trust(' ' + anmeldeverfahren)])) : '',
+            lecture.anmeldeverfahren !== '' ? (m('p.list-item-apply-method', [m('i.icon.ion-checkmark'), m.trust(' ' + anmeldeverfahren)])) : '',
 
-            lecture.weblink !== '' ? m('p.lecture-list-item-weblink', [m('i.icon.ion-earth'), m.trust(' Weblink: ' + linkify(lecture.weblink))]) : '',
+            lecture.weblink !== '' ? m('p.list-item-weblink', [m('i.icon.ion-earth'), m.trust(' Weblink: ' + linkify(lecture.weblink))]) : '',
 
             // Apply until when
-            lecture.anmeldefrist !== '' ? (m('p.lecture-list-item-deadline', [m('i.icon.ion-ios-timer-outline'), ' Anmeldefrist: ' + lecture.anmeldefrist.replace('bis zum:', '')])) : '',
+            lecture.anmeldefrist !== '' ? (m('p.list-item-deadline', [m('i.icon.ion-ios-timer-outline'), ' Anmeldefrist: ' + lecture.anmeldefrist.replace('bis zum:', '')])) : '',
 
             // Any restrictions
-            m('p.lecture-list-item-restriction', [m('i.icon.ion-alert-circled'), ' Beschränkung: ' + lecture.beschraenkung])
+            m('p.list-item-restriction', [m('i.icon.ion-alert-circled'), ' Beschränkung: ' + lecture.beschraenkung])
         ]);
     }
 };

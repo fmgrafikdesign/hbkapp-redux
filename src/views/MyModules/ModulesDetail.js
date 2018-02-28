@@ -15,7 +15,7 @@ var ModulesDetail = {
 
     oncreate: function() {
 
-        ModulesDetail.awesomplete = new Awesomplete(document.querySelector('#awesome1'), { list: ModulesDetail.lectureTitles });
+        ModulesDetail.awesomplete = new Awesomplete(document.querySelector('#awesome1'), { list: ModulesDetail.lectureTitles, autoFirst: true });
         ModulesDetail.awesomplete.list = ModulesDetail.lectureTitles;
 
         //console.log('oncreate');
@@ -36,7 +36,8 @@ var ModulesDetail = {
         //console.log(ModulesDetail.lectureTitles);
 
         return [
-            m('input#awesome1')
+            m('input#awesome1'),
+            m('p', vnode.attrs.lid)
             /*m('datalist#lectureTitles', options.map(function(option) {
                 return m('option', option);
             }))*/

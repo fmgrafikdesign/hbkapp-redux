@@ -409,11 +409,11 @@ p {
     overflow-x: auto;
 }
 
-.lecture-list-item-wrapper {
+.list-item-wrapper {
     padding: .5rem 1rem;
 }
 
-.lecture-list-item {
+.list-item {
     background-color: #fff;
     cursor: pointer;
     padding: .75rem;
@@ -425,7 +425,7 @@ p {
     position: relative;
 }
 
-.lecture-list-item-favorite-icon {
+.list-item-favorite-icon {
     position: absolute;
     top: 0;
     right: 0;
@@ -439,11 +439,11 @@ a, a:hover {
     color: inherit;
 }
 
-.lecture-list-item:hover {
+.list-item:hover {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-.active-lecture, .active-lecture:hover {
+.active-module, .active-module:hover, .active-lecture, .active-lecture:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.22), 0 10px 10px rgba(0,0,0,0.20);
 }
 
@@ -451,6 +451,8 @@ a, a:hover {
     padding: 1rem 1.5rem 1.5rem 1.5rem;
     box-shadow: none;
     cursor: inherit;
+    margin: 0 auto;
+    max-width: 1000px;
 }
 
 @media screen and (min-width: 764px) {
@@ -463,50 +465,50 @@ a, a:hover {
     box-shadow: none;
 }
 
-.lecture-list-item-title {
+.list-item-title {
     font-size: 1.4rem;
     font-weight: 600;
     color: #111;
     margin: .5rem 0 .2rem;
 }
 
-.single-lecture  .lecture-list-item-title {
+.single-lecture  .list-item-title {
     font-size: 1.8rem;
     margin-top: 0;
 }
 
-.lecture-list-item-subtitle {
+.list-item-subtitle {
     font-size: 1.1rem;
     margin:0;
     color: #666;
 }
 
-.single-lecture .lecture-list-item-subtitle {
+.single-lecture .list-item-subtitle {
     font-size: 1.2rem;
 }
 
-.lecture-list-item-divider {
+.list-item-divider {
     max-width: 100px;
     margin: .8rem 0;
 }
 
-.lecture-list-item-quick-info {
+.list-item-quick-info {
     margin-bottom: .4rem;
 }
 
-.lecture-list-item-text-intro {
+.list-item-text-intro {
     line-height: 1.3;
     margin-bottom: .5rem;
     font-size: .95rem;
 }
 
-.single-lecture .lecture-list-item-text {
+.single-lecture .list-item-text {
     line-height: 1.4;
     margin-bottom: .5rem;
     font-size: 1rem;
 }
 
-.lecture-list-item-area-divider {
+.list-item-area-divider {
     border-color: #fff;
     border-top: 1px solid #bbb;
     margin: .75rem 0;

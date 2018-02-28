@@ -56,6 +56,14 @@ m.route(document.body, "/vorlesungen", {
             return m(Layout, m(Modules));
         }
     },
+    "/modulplan/modul-:lid": {
+        onmatch: function() {
+            addBodyClass('second-screen');
+        },
+        render: function(param) {
+            return m(Layout, m(Modules, { lid: param.attrs.lid }));
+        }
+    },
     "/informationen": {
         onmatch: function() {
             removeBodyClass('second-screen');
