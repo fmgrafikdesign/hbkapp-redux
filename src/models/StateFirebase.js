@@ -63,15 +63,15 @@ firebase.auth().onAuthStateChanged(function(user) {
         });
 
         database.ref('/users/' + userId + '/modulplan/freiekunst').once('value', function(snapshot) {
-            //console.log(snapshot.val());
-            StateModules.setExcluded(parseInt(snapshot.val()), true);
+            console.log(snapshot.val());
+            StateModules.setExcluded(snapshot.val(), true);
             m.redraw();
         });
 
-        database.ref('/users/' + userId + '/modulplan/module').on('value', function(snapshot) {
+        database.ref('/users/' + userId + '/modulplan/module').once('value', function(snapshot) {
             //console.log(snapshot.val());
             StateModules.setModuleData(snapshot.val());
-            m.redraw();
+            //m.redraw();
         });
 
         document.body.classList.remove("not-logged-in");

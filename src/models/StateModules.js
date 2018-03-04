@@ -24,13 +24,14 @@ function Modul(id, name, teilmodule, abschluesse) {
 
 }
 
-function Teilmodul(typ, bezeichnung, cp, excluded, finished, name) {
+function Teilmodul(id, typ, bezeichnung, cp, excluded, finished) {
+    this.id = id;
     this.typ = typ;
     this.bezeichnung = bezeichnung;
     this.finished = finished;
     this.cp = cp;
     this.excluded = excluded;
-    this.name = name;
+    this.name = '';
 
 }
 
@@ -56,108 +57,112 @@ var modules = [];
 var untermodule = [];
 
 untermodule = [
-    new Teilmodul(ap, "Bildnerische Grundlagen", 16),
-    new Teilmodul(fp, freechoice, 4),
-    new Teilmodul(fp, draw, 2),
-    new Teilmodul(fp, workshop, 4)
+    new Teilmodul("i0_0", ap, "Bildnerische Grundlagen", 16),
+    new Teilmodul("i0_1", fp, freechoice, 4),
+    new Teilmodul("i0_2", fp, draw, 2),
+    new Teilmodul("i0_3", fp, workshop, 4)
 ];
 
-modules.push(new Modul(0, 'Modul 01: Praxis I', untermodule, [BACHELOR, DIPLOM]));
+modules.push(new Modul(1, 'Modul 01: Praxis I', untermodule, [BACHELOR, DIPLOM]));
 
 untermodule = [
-    new Teilmodul(ap, freechoice, 16),
-    new Teilmodul(fp_theo, freechoice, 4),
-    new Teilmodul(fp, draw, 2),
-    new Teilmodul(fp, workshop, 4),
-    new Teilmodul(se, se, 0, FREIE_KUNST)
+    new Teilmodul("i1_0", ap, freechoice, 16),
+    new Teilmodul("i1_1", fp_theo, freechoice, 4),
+    new Teilmodul("i1_2", fp, draw, 2),
+    new Teilmodul("i1_3", fp, workshop, 4),
+    new Teilmodul("i1_4", se, se, 0, FREIE_KUNST)
 ];
 
-modules.push(new Modul(1, 'Modul 02: Praxis II', untermodule, [BACHELOR, DIPLOM]));
+modules.push(new Modul(2, 'Modul 02: Praxis II', untermodule, [BACHELOR, DIPLOM]));
 
 untermodule = [
-    new Teilmodul(ap, freechoice, 16),
-    new Teilmodul(fp_theo, freechoice, 4),
-    new Teilmodul(fp, draw, 2),
-    new Teilmodul(fp, freechoice, 4),
-    new Teilmodul(se, se, 0, FREIE_KUNST)
+    new Teilmodul("i2_0", ap, freechoice, 16),
+    new Teilmodul("i2_1", fp_theo, freechoice, 4),
+    new Teilmodul("i2_2", fp, draw, 2),
+    new Teilmodul("i2_3", fp, freechoice, 4),
+    new Teilmodul("i2_4", se, se, 0, FREIE_KUNST)
 ];
 
-modules.push(new Modul(2, 'Modul 03: Praxis III', untermodule, [BACHELOR, DIPLOM]));
+modules.push(new Modul(3, 'Modul 03: Praxis III', untermodule, [BACHELOR, DIPLOM]));
 
 untermodule = [
-    new Teilmodul(ap + ' (Zwischenprüfung)', instudy, 16),
-    new Teilmodul(fp_theo, freechoice, 4),
-    new Teilmodul(fp, draw, 2),
-    new Teilmodul(fp, freechoice, 4),
-    new Teilmodul(se, se, 0, FREIE_KUNST)
+    new Teilmodul("i3_0", ap + ' (Zwischenprüfung)', instudy, 16),
+    new Teilmodul("i3_1", fp_theo, freechoice, 4),
+    new Teilmodul("i3_2", fp, draw, 2),
+    new Teilmodul("i3_3", fp, freechoice, 4),
+    new Teilmodul("i3_4", se, se, 0, FREIE_KUNST)
 ];
 
-modules.push(new Modul(3, 'Modul 04: Praxis IV', untermodule, [BACHELOR, DIPLOM]));
+modules.push(new Modul(4, 'Modul 04: Praxis IV', untermodule, [BACHELOR, DIPLOM]));
 
 untermodule = [
-    new Teilmodul(theo, 'Kunst', 4),
-    new Teilmodul(theo, 'Design', 4),
-    new Teilmodul(theo, 'Medien', 4),
-    new Teilmodul(theo, freechoice, 4)
+    new Teilmodul("i4_0", theo, 'Kunst', 4),
+    new Teilmodul("i4_1", theo, 'Design', 4),
+    new Teilmodul("i4_2", theo, 'Medien', 4),
+    new Teilmodul("i4_3", theo, freechoice, 4)
 ];
 
-modules.push(new Modul(4, 'Modul 05: Theorie I (benotet)', untermodule, [BACHELOR, DIPLOM]));
+modules.push(new Modul(5, 'Modul 05: Theorie I (benotet)', untermodule, [BACHELOR, DIPLOM]));
 
 untermodule = [
-    new Teilmodul(ap, instudy, 16),
-    new Teilmodul(fp_theo, freechoice, 4),
-    new Teilmodul(fp, freechoice, 2),
-    new Teilmodul(se, se, 0, FREIE_KUNST)
+    new Teilmodul("i5_0", ap, instudy, 16),
+    new Teilmodul("i5_1", fp_theo, freechoice, 4),
+    new Teilmodul("i5_2", fp, freechoice, 2),
+    new Teilmodul("i5_3", se, se, 0, FREIE_KUNST)
 ];
 
-modules.push(new Modul(5, 'Modul 06: Praxis V', untermodule, [BACHELOR, DIPLOM]));
+modules.push(new Modul(6, 'Modul 06: Praxis V', untermodule, [BACHELOR, DIPLOM]));
 
 untermodule = [
-    new Teilmodul(ap, freechoice, 16),
-    new Teilmodul(fp, freechoice, 4),
-    new Teilmodul(fp, freechoice, 2),
-    new Teilmodul(se, se, 0, FREIE_KUNST)
+    new Teilmodul("i6_0", ap, freechoice, 16),
+    new Teilmodul("i6_1", fp, freechoice, 4),
+    new Teilmodul("i6_2", fp, freechoice, 2),
+    new Teilmodul("i6_3", se, se, 0, FREIE_KUNST)
 ];
 
-modules.push(new Modul(6, 'Modul 07: Praxis VI', untermodule, [BACHELOR, DIPLOM, MASTER_AUFLAGEN]));
+modules.push(new Modul(7, 'Modul 07: Praxis VI', untermodule, [BACHELOR, DIPLOM, MASTER_AUFLAGEN]));
 
 untermodule = [
-    new Teilmodul(ap, freechoice, 16),
-    new Teilmodul(fp_theo, freechoice, 4),
-    new Teilmodul(fp, freechoice, 2),
-    new Teilmodul(se, se, 0, FREIE_KUNST)
+    new Teilmodul("i7_0", ap, freechoice, 16),
+    new Teilmodul("i7_1", fp_theo, freechoice, 4),
+    new Teilmodul("i7_2", fp, freechoice, 2),
+    new Teilmodul("i7_3", se, se, 0, FREIE_KUNST)
 ];
 
-modules.push(new Modul(7, 'Modul 08: Praxis VII', untermodule, [BACHELOR, DIPLOM, MASTER_AUFLAGEN]));
+modules.push(new Modul(8, 'Modul 08: Praxis VII', untermodule, [BACHELOR, DIPLOM, MASTER_AUFLAGEN]));
 
 untermodule = [
-    new Teilmodul(theo, freechoice, 8),
-    new Teilmodul(theo, freechoice, 8),
-    new Teilmodul(fp_ap_theo, freechoice, 8, MASTER_AUFLAGEN),
-    new Teilmodul(fp_ap_theo, freechoice, 8, MASTER_AUFLAGEN)
+    new Teilmodul("i8_0", theo, freechoice, 8),
+    new Teilmodul("i8_1", theo, freechoice, 8),
+    new Teilmodul("i8_2", fp_ap_theo, freechoice, 8, MASTER_AUFLAGEN),
+    new Teilmodul("i8_3", fp_ap_theo, freechoice, 8, MASTER_AUFLAGEN)
 ];
 
-modules.push(new Modul(8, 'Modul 09: Theorie II', untermodule, [BACHELOR, DIPLOM, MASTER_AUFLAGEN]));
+modules.push(new Modul(9, 'Modul 09: Theorie II', untermodule, [BACHELOR, DIPLOM, MASTER_AUFLAGEN]));
 
 untermodule = [
-    new Teilmodul(ap, instudy, 16),
-    new Teilmodul(fp, freechoice, 4),
-    new Teilmodul(fp, freechoice, 2)
+    new Teilmodul("i9_0", ap, instudy, 16),
+    new Teilmodul("i9_1", fp, freechoice, 4),
+    new Teilmodul("i9_2", fp, freechoice, 2)
 ];
 
-modules.push(new Modul(9, 'Modul 10: Praxis VIII', untermodule, [BACHELOR, DIPLOM, MASTER_AUFLAGEN]));
+modules.push(new Modul(10, 'Modul 10: Praxis VIII', untermodule, [BACHELOR, DIPLOM, MASTER_AUFLAGEN]));
 
 untermodule = [
-    new Teilmodul(ap, instudy, 24),
-    new Teilmodul(fp_theo, 'Projektbegleitend', 4),
-    new Teilmodul(fp_theo, 'Kurzveranstaltung', 2)
+    new Teilmodul("i10_0", ap, instudy, 24),
+    new Teilmodul("i10_1", fp_theo, 'Projektbegleitend', 4),
+    new Teilmodul("i10_2", fp_theo, 'Kurzveranstaltung', 2)
 ];
 
-modules.push(new Modul(10, 'Modul 11', untermodule, [DIPLOM, MASTER_AUFLAGEN, MASTER]));
+modules.push(new Modul(11, 'Modul 11', untermodule, [DIPLOM, MASTER_AUFLAGEN, MASTER]));
 
-// Same modules in modul 12
+untermodule = [
+    new Teilmodul("i11_0", ap, instudy, 24),
+    new Teilmodul("i11_1", fp_theo, 'Projektbegleitend', 4),
+    new Teilmodul("i11_2", fp_theo, 'Kurzveranstaltung', 2)
+];
 
-modules.push(new Modul(11, 'Modul 12', untermodule, [DIPLOM, MASTER_AUFLAGEN, MASTER]));
+modules.push(new Modul(12, 'Modul 12', untermodule, [DIPLOM, MASTER_AUFLAGEN, MASTER]));
 
 var StateModules = {
     //receivedData: false,
@@ -169,6 +174,16 @@ var StateModules = {
     setModuleData: function(data) {
         StateModules.moduleData = data;
         //console.log(StateModules.moduleData);
+
+        StateModules.modules.forEach(function(module) {
+            module.teilmodule.forEach(function(teilmodul) {
+                if(data[teilmodul.id]) {
+                    teilmodul.name = data[teilmodul.id];
+                    //console.log(teilmodul.id);
+                }
+            })
+        });
+
     },
 
     setExcluded: function(checked, localonly) {
@@ -177,6 +192,7 @@ var StateModules = {
             var firebase = require('./StateFirebase');
             firebase.database.ref('/users/' + firebase.uid + '/modulplan/').update({freiekunst: checked})
         }
+        console.log(checked);
         return checked ? StateModules.excluded = 5 : StateModules.excluded = false;
     },
     setGraduation: function(graduation, localonly) {

@@ -11,7 +11,7 @@ require('../../awesomplete.min.js');
 function Teilmodul(vnode) {
 
     //console.log(StateModules.moduleData[vnode.attrs.id]);
-    var instanceValue = StateModules.moduleData[vnode.attrs.id];
+    //var instanceValue = StateModules.moduleData[vnode.attrs.id];
 
     return {
 
@@ -19,14 +19,13 @@ function Teilmodul(vnode) {
             vnode.state.id = vnode.attrs.id;
             //console.log('init', vnode.state.id);
 
-            vnode.state.update = debounce(function (vnode) {
+            vnode.state.update = debounce(function (teilmodul) {
                 //console.log('update', vnode.state.id, instanceValue);
-                var update = {};
-                update[vnode.state.id] = instanceValue;
-                console.log(update);
-                database.ref('/users/' + firebase.uid + '/modulplan/module/').update(update).then(function () {
 
-                })
+                var update = {};
+                update[vnode.state.id] = teilmodul.name;
+                console.log(update);
+                database.ref('/users/' + firebase.uid + '/modulplan/module/').update(update).then(function () { })
             }, 1000);
 
         },
@@ -42,7 +41,7 @@ function Teilmodul(vnode) {
             vnode.state.awesomplete.list = StateLectures.lectureTitles;
         },
 
-        onbeforeupdate: function (vnode) {
+        onupdate: function (vnode) {
 
             if (!vnode.state.awesomplete) return;
 
@@ -52,19 +51,20 @@ function Teilmodul(vnode) {
 
         view: function (vnode) {
             var teilmodul = vnode.attrs.teilmodul;
+            //console.log(teilmodul.id, teilmodul.name);
 
             if (vnode.attrs.teilmodul.excluded === StateModules.excluded) return;
 
             return m('.submodule', [
-                m('h3', teilmodul.typ + ' (' + teilmodul.cp + ' CP) ' + vnode.state.id),
+                m('h3', teilmodul.typ + ' (' + teilmodul.cp + ' CP)'),
                 m('p.list-item-subtitle', teilmodul.bezeichnung),
                 m('.input-group', [
                     m('input.module-input', {
                         id: vnode.attrs.id,
-                        value: instanceValue,
+                        value: teilmodul.name,
                         oninput: m.withAttr('value', function (value) {
-                            instanceValue = value;
-                            vnode.state.update(vnode);
+                            teilmodul.name = value;
+                            vnode.state.update(teilmodul);
                         })
                     })
                 ])
@@ -93,7 +93,7 @@ var ModulesDetail = {
         if (!module) return;
 
         //console.log('view');
-        //console.log(ModulesDetail.lectureTitles);
+        //console.log(module.id);
 
         return [m(singlenav, {backurl: '/modulplan'}), m('.list-item.single-lecture ', [
             m('.list-item-header', [
@@ -102,7 +102,8 @@ var ModulesDetail = {
             ]),
 
             m('.submodules', module.teilmodule.map(function (teilmodul, index) {
-                return m(Teilmodul, {teilmodul: teilmodul, id: 'i' + module.id + '_' + index});
+                //console.log(teilmodul);
+                return m(Teilmodul, {teilmodul: teilmodul, modulid: vnode.attrs.lid, id: 'i' + module.id + '_' + index});
             }))
 
         ])];
