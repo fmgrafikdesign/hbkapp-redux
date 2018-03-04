@@ -17,10 +17,10 @@ function Teilmodul(vnode) {
 
         oninit: function (vnode) {
             vnode.state.id = vnode.attrs.id;
-            console.log('init', vnode.state.id);
+            //console.log('init', vnode.state.id);
 
             vnode.state.update = debounce(function (vnode) {
-                console.log('update', vnode.state.id, instanceValue);
+                //console.log('update', vnode.state.id, instanceValue);
                 var update = {};
                 update[vnode.state.id] = instanceValue;
                 database.ref('/users/' + firebase.uid + '/modulplan/module/').update(update).then(function () {
@@ -39,7 +39,6 @@ function Teilmodul(vnode) {
                 autoFirst: true
             });
             vnode.state.awesomplete.list = StateLectures.lectureTitles;
-
         },
 
         onupdate: function (vnode) {
@@ -47,7 +46,9 @@ function Teilmodul(vnode) {
             if (!vnode.state.awesomplete) return;
 
             vnode.state.id = vnode.attrs.id;
-            //console.log('onupdate', vnode.state.id);
+            //console.log(StateModules.moduleData);
+            instanceValue = StateModules.moduleData[vnode.attrs.id];
+            //console.log(instanceValue);
             //vnode.state.awesomplete.list = StateLectures.lectureTitles;
             //console.log(ModulesDetail.awesomplete.list);
         },
