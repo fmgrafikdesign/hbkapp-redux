@@ -4,6 +4,7 @@ require('firebase/auth');
 require('firebase/database');
 
 var StateLectures = require('./StateLectures');
+var StateModules = require('./StateModules');
 
 var StateUser = require('./StateUser');
 
@@ -26,15 +27,28 @@ firebase.auth().onAuthStateChanged(function(user) {
         StateUser.loggedIn = true;
         globalFirebase.loggedIn = true;
         StateUser.setUser(user);
+        globalFirebase.uid = user.uid;
 
         // Load course of studies of user
 
         // Load My Lectures
         var userId = StateUser.uid;
 
+        var update = {
+            name: user.displayName,
+            image: user.photoURL,
+            mail: user.email
+        }
+
+        database.ref('/users/' + userId).update(update);
+
         database.ref('/users/' + userId + '/favorites').on('value', function(snapshot) {
             //console.log(snapshot.val());
+            //console.log('updating my lectures with', snapshot.val());
+
+            //console.log(StateLectures);
             StateLectures.updateMyLectures(snapshot.val());
+            //console.log('done');
         });
 
         // Load filter prefs
@@ -42,19 +56,38 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         // Load Modules
 
+        database.ref('/users/' + userId + '/modulplan/graduation').once('value', function(snapshot) {
+            //console.log(snapshot.val());
+            StateModules.setGraduation(parseInt(snapshot.val()), true);
+            m.redraw();
+        });
+
+        database.ref('/users/' + userId + '/modulplan/freiekunst').once('value', function(snapshot) {
+            //console.log(snapshot.val());
+            StateModules.setExcluded(parseInt(snapshot.val()), true);
+            m.redraw();
+        });
+
+        database.ref('/users/' + userId + '/modulplan/module').on('value', function(snapshot) {
+            //console.log(snapshot.val());
+            StateModules.setModuleData(snapshot.val());
+            m.redraw();
+        });
+
         document.body.classList.remove("not-logged-in");
         document.body.classList.add("logged-in");
     } else {
         // No user is signed in.
         StateUser.loggedIn = false;
         globalFirebase.loggedIn = false;
+        globalFirebase.uid = false;
         StateUser.resetUser();
-
 
         // Reset My Lectures
         StateLectures.myLectures = [];
 
         // Reset Modules
+        StateModules.setModuleData({});
 
         document.body.classList.remove("logged-in");
         document.body.classList.add("not-logged-in");
@@ -111,8 +144,9 @@ var globalFirebase = {
     database: firebase.database(),
     auth: firebase.auth(),
     loggedIn: false,
+    uid: false,
     login: googleLogin,
-    logout: signOut,
+    logout: signOut
 };
 
 module.exports = globalFirebase;

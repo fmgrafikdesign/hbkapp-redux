@@ -4,7 +4,7 @@ var ModuleListItem = {
     view: function(vnode) {
         var module = vnode.attrs.module;
 
-        console.log(vnode.attrs.lid, module.id);
+        //console.log(vnode.attrs.lid, module.id);
 
         return m('a', {
             href: '/modulplan/modul-' + module.id,
@@ -12,13 +12,9 @@ var ModuleListItem = {
             oncreate: m.route.link,
             onupdate: m.route.link,
             id: module.id,
-            onclick: function () {
-                //StateLectures.setActive(lecture.id);
-                document.getElementById('split-view-controller').classList.add('second-screen');
-                //StateLectures.state.secondScreen = true;
-            }
         }, [
-            m('.list-item-title', module.name)
+            m('.list-item-title', module.name),
+            m('.list-item-subtitle', module.progress())
         ]);
 
     }

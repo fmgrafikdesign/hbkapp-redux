@@ -1,7 +1,7 @@
 var m = require('mithril');
 var LecturesFilter = require('./LecturesFilter');
 var MyLecturesFilter = require('./MyLecturesFilter');
-var ModulesDetail = require('../views/MyModules/ModulesDetail');
+//var ModulesDetail = require('../views/MyModules/ModulesDetail');
 
 var StateLectures = {
 
@@ -9,18 +9,23 @@ var StateLectures = {
         secondScreen: false
     },
 
-    oninit: function () {
-        console.log('oninit StateLectures');
-    },
-
     lectures: [],
     myLectures: [],
+    lectureTitles: [],
+
+    updateLectureTitles: function() {
+        //console.log('updating lecture titles...');
+        StateLectures.lectureTitles = StateLectures.lectures.map(function(lecture) {
+            return lecture.titel;
+        });
+        //console.log(ModulesDetail.lectureTitles);
+    },
 
     // Gets called once the lectures are loaded successfully
     loaded: function () {
 
         // Update available lectures for autocomplete
-        ModulesDetail.updateLectureTitles(StateLectures.lectures);
+        StateLectures.updateLectureTitles();
 
         // Info for loading spinners etc that we received data
         StateLectures.receivedLectures = true;
@@ -105,12 +110,12 @@ var StateLectures = {
                 }).then(function (result) {
                     // If received checksum equals current, we're up to date and can abort
                     if (result == checksum) {
-                        console.log('lectures up to date');
+                        //console.log('lectures up to date');
                         StateLectures.lectures = JSON.parse(localStorage.getItem('lectures'));
                         StateLectures.loaded();
                     }
                     else {
-                        console.log('lectures not up to date, requesting...');
+                        //console.log('lectures not up to date, requesting...');
                         requestLectures();
                     }
                 });
@@ -120,7 +125,7 @@ var StateLectures = {
         }
 
         else {
-            console.log('No local storage found, requesting without cache system...');
+            //console.log('No local storage found, requesting without cache system...');
             requestLectures();
         }
 
@@ -159,7 +164,6 @@ var StateLectures = {
         StateLectures.myLectures = [];
         StateLectures.receivedMyLectures = true;
 
-
         if(!ids) {
             m.redraw();
             return ;
@@ -177,7 +181,7 @@ var StateLectures = {
     isFavorite: function(lid) {
         //console.log('trying to find lid in favorites:');
         var result = StateLectures.myLectures.find(function(lecture) {
-            if(!lecture.id) return false;
+            if((!lecture) || !lecture.id) return false;
             return lecture.id === parseInt(lid);
         });
         //console.log(result);

@@ -14,10 +14,18 @@ module.exports = {
 
     view: function(vnode) {
 
+        var secondscreen = m('.wrapper-2', m('div', m(ModulesDetail, {lid: vnode.attrs.lid})));
+
+        if(!vnode.attrs.lid) {
+            secondscreen = m('.wrapper-2');
+        }
+
+        //console.log(secondscreen);
+
         return [
             m(SplitView, [
                 m('.wrapper-1.parent-height.flex-column', m(ModulesSummary, {lid: vnode.attrs.lid })),
-                m('.wrapper-2', m('div', m(ModulesDetail, {lid: vnode.attrs.lid})))
+                secondscreen
             ])
         ];
 
