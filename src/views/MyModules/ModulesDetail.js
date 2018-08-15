@@ -16,16 +16,17 @@ function Teilmodul(vnode) {
     return {
 
         oninit: function (vnode) {
-            vnode.state.id = vnode.attrs.id;
+            //vnode.state.id = vnode.attrs.id;
             //console.log('init', vnode.state.id);
 
             vnode.state.update = debounce(function (teilmodul) {
                 //console.log('update', vnode.state.id, instanceValue);
 
                 var update = {};
-                update[vnode.state.id] = teilmodul.name;
-                console.log(update);
-                database.ref('/users/' + firebase.uid + '/modulplan/module/').update(update).then(function () { })
+                update["name"] = teilmodul.name;
+                update['finished'] = teilmodul.finished;
+                database.ref('/users/' + firebase.uid + '/modulplan/module/' + teilmodul.id).update(update).then(function () {
+                })
             }, 1000);
 
         },
@@ -34,18 +35,19 @@ function Teilmodul(vnode) {
 
             //if (!vnode.attrs.id) return;
 
-            vnode.state.awesomplete = new Awesomplete(document.querySelector('#' + vnode.attrs.id), {
+            vnode.attrs.teilmodul.awesomplete = new Awesomplete(document.querySelector('#' + vnode.attrs.teilmodul.id), {
                 list: StateLectures.lectureTitles,
                 autoFirst: true
             });
-            vnode.state.awesomplete.list = StateLectures.lectureTitles;
+            vnode.attrs.teilmodul.awesomplete.list = StateLectures.lectureTitles;
+            console.log(vnode.attrs.teilmodul.awesomplete);
         },
 
         onupdate: function (vnode) {
 
-            if (!vnode.state.awesomplete) return;
+            if (!vnode.attrs.teilmodul.awesomplete) return;
 
-            vnode.state.id = vnode.attrs.id;
+            vnode.attrs.teilmodul.awesomplete.list = StateLectures.lectureTitles;
 
         },
 
@@ -57,16 +59,37 @@ function Teilmodul(vnode) {
 
             return m('.submodule', [
                 m('h3', teilmodul.typ + ' (' + teilmodul.cp + ' CP)'),
-                m('p.list-item-subtitle', teilmodul.bezeichnung),
-                m('.input-group', [
-                    m('input.module-input', {
-                        id: vnode.attrs.id,
-                        value: teilmodul.name,
-                        oninput: m.withAttr('value', function (value) {
-                            teilmodul.name = value;
+                //m('p.list-item-subtitle', teilmodul.bezeichnung),
+                m('.input-group', {
+                    // If active and/or filled out, set class
+                    class: teilmodul.name !== '' ? 'content' : ''
+                }, [
+                    m('input.module-completed', {
+                        id: 'radio-' + teilmodul.id,
+                        checked: teilmodul.finished,
+                        type: 'checkbox',
+                        title: 'Schein abgegeben?',
+                        onclick: m.withAttr('checked', function (checked) {
+                            teilmodul.finished = checked;
                             vnode.state.update(teilmodul);
                         })
-                    })
+                    }),
+                    m('.material-input', [
+                        m('input.module-input', {
+                            id: teilmodul.id,
+                            value: teilmodul.name,
+                            //placeholder: teilmodul.bezeichnung,
+                            onchange: m.withAttr('value', function (value) {
+                                teilmodul.name = value;
+                                vnode.state.update(teilmodul);
+                            })
+                        }),
+                        m('span.bar', ''),
+                        m('label', {
+                            for: teilmodul.id
+                        }, teilmodul.bezeichnung)
+                    ]),
+                    m('hr.list-item-area-divider')
                 ])
             ])
 
@@ -103,7 +126,11 @@ var ModulesDetail = {
 
             m('.submodules', module.teilmodule.map(function (teilmodul, index) {
                 //console.log(teilmodul);
-                return m(Teilmodul, {teilmodul: teilmodul, modulid: vnode.attrs.lid, id: 'i' + module.id + '_' + index});
+                return m(Teilmodul, {
+                    teilmodul: teilmodul,
+                    modulid: vnode.attrs.lid,
+                    id: 'i' + module.id + '_' + index
+                });
             }))
 
         ])];

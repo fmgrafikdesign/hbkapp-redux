@@ -1,10 +1,13 @@
-//Extern
+var UnderConstruction = require('./UnderConstruction');
+var m = require('mithril');
 
 module.exports = {
     oncreate: function() {
         document.title = "Extern" + appTitleExt;
     },
     view: function() {
-        return "I am the extern module, reporting in"
+        return m('.under-construction-wrapper.parent-height',
+            m('.under-construction-container', m(UnderConstruction))
+        );
     }
 };

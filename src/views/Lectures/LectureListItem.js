@@ -16,8 +16,6 @@ datum [start] [ende] [ist blockveranstaltung]
 
  */
 
-var placeholder = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lore";
-
 module.exports = {
     view: function (vnode) {
         var lecture = vnode.attrs.lecture;
@@ -50,7 +48,7 @@ module.exports = {
             ]),
 
             m('p.list-item-quick-info', lecture.profs.join(', ') + ' | ' + lecture.typ.join(', ')),
-            m('p.list-item-text-intro', lecture.excerpt || placeholder)
+            m('p.list-item-text-intro', m.trust(lecture.excerpt + (lecture.excerpt.length === lecture.fulltext.length ? '' : '...')))
         ]);
     }
 };

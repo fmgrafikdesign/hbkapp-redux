@@ -1,10 +1,15 @@
 //Information
 
+var UnderConstruction = require('./UnderConstruction');
+var m = require('mithril');
+
 module.exports = {
     oncreate: function() {
         document.title = "Informationen" + appTitleExt;
     },
     view: function() {
-        return "I am the information module, reporting in"
+        return m('.under-construction-wrapper.parent-height',
+            m('.under-construction-container', m(UnderConstruction))
+        );
     }
 };

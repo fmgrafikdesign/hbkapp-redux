@@ -1,10 +1,13 @@
-//About
+var UnderConstruction = require('./UnderConstruction');
+var m = require('mithril');
 
 module.exports = {
     oncreate: function() {
         document.title = "Einstellungen" + appTitleExt;
     },
     view: function() {
-        return "I am the settings module, reporting in"
+        return m('.under-construction-wrapper.parent-height',
+            m('.under-construction-container', m(UnderConstruction))
+        );
     }
 };

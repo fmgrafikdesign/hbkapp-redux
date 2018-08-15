@@ -57,21 +57,22 @@ firebase.auth().onAuthStateChanged(function(user) {
         // Load Modules
 
         database.ref('/users/' + userId + '/modulplan/graduation').once('value', function(snapshot) {
-            //console.log(snapshot.val());
+            if(!snapshot.val()) return;
             StateModules.setGraduation(parseInt(snapshot.val()), true);
             m.redraw();
         });
 
         database.ref('/users/' + userId + '/modulplan/freiekunst').once('value', function(snapshot) {
-            console.log(snapshot.val());
+            if(!snapshot.val()) return;
             StateModules.setExcluded(snapshot.val(), true);
             m.redraw();
         });
 
         database.ref('/users/' + userId + '/modulplan/module').once('value', function(snapshot) {
             //console.log(snapshot.val());
+            if(!snapshot.val()) return;
             StateModules.setModuleData(snapshot.val());
-            //m.redraw();
+            m.redraw();
         });
 
         document.body.classList.remove("not-logged-in");

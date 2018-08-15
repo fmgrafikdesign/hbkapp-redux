@@ -9,11 +9,23 @@ function Modul(id, name, teilmodule, abschluesse) {
 
     var teilm = this.teilmodule;
 
+    this.relevantNumber = function() {
+        var i = 0;
+        teilm.forEach(function(teilmodul) {
+            if(teilmodul.excluded !== StateModules.excluded) {
+                i++;
+            }
+        })
+        return i;
+    };
+
+    var self = this;
+
     this.progress = function() {
         var progress = 0;
         teilm.forEach(function(teilmodul) {
-            if(teilmodul.finished) {
-                return progress += 1/teilm.length;
+            if(teilmodul.finished && (teilmodul.excluded !== StateModules.excluded)) {
+                return progress += 1/self.relevantNumber();
             }
         });
 
@@ -24,14 +36,15 @@ function Modul(id, name, teilmodule, abschluesse) {
 
 }
 
-function Teilmodul(id, typ, bezeichnung, cp, excluded, finished) {
+function Teilmodul(id, typ, bezeichnung, cp, excluded) {
     this.id = id;
     this.typ = typ;
     this.bezeichnung = bezeichnung;
-    this.finished = finished;
+    this.finished = false;
     this.cp = cp;
     this.excluded = excluded;
     this.name = '';
+    this.awesomplete = null;
 
 }
 
@@ -178,7 +191,14 @@ var StateModules = {
         StateModules.modules.forEach(function(module) {
             module.teilmodule.forEach(function(teilmodul) {
                 if(data[teilmodul.id]) {
-                    teilmodul.name = data[teilmodul.id];
+                    //console.log('assigning data');
+                    teilmodul.name = data[teilmodul.id].name;
+                    var finished = data[teilmodul.id].finished;
+                    if(finished) {
+                        teilmodul.finished = true;
+                    } else {
+                        teilmodul.finished = false;
+                    }
                     //console.log(teilmodul.id);
                 }
             })

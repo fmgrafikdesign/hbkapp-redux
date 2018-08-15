@@ -68,7 +68,7 @@ module.exports = {
         var fulltext = [];
 
         textsections.forEach(function(text) {
-            fulltext.push(m('p', text));
+            fulltext.push(m('p', m.trust(text)));
         });
 
         var fulltext_object = m('p.list-item-text', fulltext);

@@ -11,6 +11,15 @@ html,body {
     line-height: 1.3;
 }
 
+
+hr {
+    box-sizing: content-box;
+    height: 0px;
+    border-top: 1px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 0px solid transparent;
+}
+
 /* Waves */
 /*!
  * Waves v0.7.6
@@ -75,7 +84,6 @@ html,body {
 
 /* styles.css */
 html, body {
-    font-family: 'Fira Sans', 'Helvetica', sans-serif;
     font-family: 'PT Serif', 'Helvetica', sans-serif;
     font-size: 14px;
     background-color: #f0f0fa;
@@ -108,12 +116,27 @@ body {
     width: 256px;
     min-height: 100vh;
     overflow-y: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     z-index: 0;
     display: none;
     background-image: url('../img/menu-background.jpg');
     background-size: cover;
     background-position: center center;
+}
+
+.slideout-menu::after {
+    position: absolute;
+    bottom: 55px;
+    left: -42px;
+    content: "Work in Progress!";
+    background-color: #b30000;
+    font-weight: 600;
+    transform: rotate(45deg);
+    width: 219px;
+    text-align: center;
+    font-size: 1.2rem;
+
 }
 
 .slideout-menu-left {
@@ -419,7 +442,6 @@ p {
 }
 
 .list-item {
-    background-color: #fff;
     cursor: pointer;
     padding: .75rem;
     /* border: 1px solid #ddd; */
@@ -430,14 +452,49 @@ p {
     position: relative;
 }
 
-.module-list-item {
+.module-list-item, .lecture-list .list-item {
     position: relative;
+    background-color: #fff;
 }
 
 .module-list-item.disabled, .submodule.disabled {
     pointer-events: none;
     opacity: .35;
 }
+
+.list-item {
+    z-index: 3;
+}
+
+.module-progress {
+    position: absolute;
+    height: 100%;
+    content: "";
+    background-color: rgba(72, 193, 72, 0.3);
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    transition: width .3s ease;
+}
+
+.module-finished {
+    position: absolute;
+    z-index: 2;
+    transition: all .3s ease;
+    font-size: 24px;
+    width: auto;
+    height: 100%;
+    line-height: 0;
+    vertical-align: middle;
+    color: #04bd62;
+    top: 0;
+    right: 18px;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+}
+
 /*
 .module-list-item.disabled:before {
     position: absolute;
@@ -520,6 +577,8 @@ a, a:hover {
 .list-item-divider {
     max-width: 100px;
     margin: .8rem 0;
+    border-bottom: 0px solid;
+    border-top: 1px solid #000;
 }
 
 .list-item-quick-info {
@@ -554,7 +613,7 @@ a, a:hover {
 
 /* Timetable */
 
-.lecture-list-item-times {
+.list-item-times {
     width: 100%;
     text-align: center;
     display: block;
@@ -846,4 +905,93 @@ th:last-of-type, td:last-of-type {
 
 .awesomplete > ul {
     border-radius: 2px;
+}
+
+/* Material inputs on my modules */
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.material-input {
+    position:relative;
+}
+.material-input input 				{
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:500px;
+    max-width: 90%;
+    border:none;
+    border-bottom:1px solid #757575;
+}
+.material-input input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+.material-input label 				 {
+    color:#999;
+    font-size:18px;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:5px;
+    top:10px;
+    transition:0.15s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+.material-input:focus-within label, .input-group.content label 		{
+    top: -10px;
+    font-size: 80%;
+    color: #5264ae;
+}
+
+/* BOTTOM BARS ================================= */
+.bar 	{ position:relative; display:block; width:300px; }
+.bar:before, .bar:after 	{
+    content:'';
+    height:2px;
+    width:0;
+    bottom:1px;
+    position:absolute;
+    background: #5264ae;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+.bar:before {
+    left:50%;
+}
+.bar:after {
+    right:50%;
+}
+
+/* active state */
+.material-input:focus-within .bar:before, .material-input:focus-within .bar:after {
+    width:50%;
+}
+
+body::after {
+    content: "hbkapp.de by Fabian Mohr";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    z-index: 1;
+    padding: .25rem .5rem;
+    font-weight: bold;
+    background-color: #222;
+}
+
+.under-construction-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.font-weight-regular {
+    font-weight: normal;
 }

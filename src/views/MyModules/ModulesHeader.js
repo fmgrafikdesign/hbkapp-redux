@@ -45,7 +45,9 @@ var ModulesHeader = {
                         m('label[for=checkbox-fk]', {
                             /*onclick: ModulesHeader.infoCheckbox*/
                         }, 'Ich studiere Freie Kunst'),
-                        m('input#checkbox-fk[type=checkbox]' + (StateModules.excluded === 5 ? '[checked=true]' : ''), {
+                        m('input#checkbox-fk', {
+                            type: 'checkbox',
+                            checked: StateModules.excluded === 5,
                             value: 4,
                             onclick: m.withAttr('checked', function(checked) {
                                 StateModules.setExcluded(checked);

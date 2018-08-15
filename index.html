@@ -14,7 +14,6 @@
 
     <!-- Favicon -->
 
-
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -27,14 +26,18 @@
 
     <script src="/src/awesomplete.js"></script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47199906-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-47199906-1');
+    </script>
 
 
-    <!-- Google Sign-in -->
-    <!-- Gets handled in the Login-Module -->
-    <!--<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>-->
-<!--    <script src="./bin/mithril.min.js"></script>-->
-    <!--<meta name="google-signin-client_id" content="934253145013-m5c4tnhuhtect51h8k749sp0qfm5ojnj.apps.googleusercontent.com">-->
-<script>
+    <script>
 
     var auth2;
     var user_global = {};
@@ -109,4 +112,23 @@
 
 <script src="bin/app.js"></script>
 </body>
+<script>
+    // Register service worker
+    if('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+
+            //navigator.serviceWorker.register('sw_offlinepage.js')
+            //navigator.serviceWorker.register('sw_offlinesite.js')
+            navigator.serviceWorker.register('sw_cachedsite.js')
+                .then(function(registration) {
+                    console.log('registered successfully');
+                    console.log('Scope: ' + registration.scope);
+                }, function(error) {
+                    console.log('something went wrong registering the worker:');
+                    console.log(error);
+                })
+
+        })
+    }
+</script>
 </html>
