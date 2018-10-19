@@ -14,6 +14,8 @@ var activeLecture = {
         //console.log(StateLectures.activeLecture);
         var lecture = StateLectures.getLecture(vnode.attrs.lid);
 
+        //console.log(lecture);
+
         return m(LectureSingleCard, {lecture: lecture});
     }
 };
@@ -41,6 +43,7 @@ var favbutton = {
                     }, 400);
 
                     var isFavorite = StateLectures.isFavorite(vnode.attrs.lid);
+                    console.log('The lecture "' + vnode.attrs.lid + '" is favorited: ' + isFavorite);
 
                     if (isFavorite) {
                         firebase.database.ref('/users/' + StateUser.uid + '/favorites/' + lid).remove().then(function (result) {

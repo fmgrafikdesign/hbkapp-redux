@@ -27,14 +27,15 @@
     <script src="/src/awesomplete.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47199906-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118368006-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'UA-47199906-1');
+        gtag('config', 'UA-118368006-1');
     </script>
+
 
 
     <script>
@@ -114,21 +115,56 @@
 </body>
 <script>
     // Register service worker
-    if('serviceWorker' in navigator) {
+    var register = true;
+    register = true;
+    if('serviceWorker' in navigator && register) {
         window.addEventListener('load', function() {
 
             //navigator.serviceWorker.register('sw_offlinepage.js')
             //navigator.serviceWorker.register('sw_offlinesite.js')
-            navigator.serviceWorker.register('sw_cachedsite.js')
+            navigator.serviceWorker.register('sw.js')
                 .then(function(registration) {
-                    console.log('registered successfully');
-                    console.log('Scope: ' + registration.scope);
+                    //console.log('registered successfully');
+                    //console.log('Scope: ' + registration.scope);
                 }, function(error) {
-                    console.log('something went wrong registering the worker:');
-                    console.log(error);
+                    //console.log('something went wrong registering the worker:');
+                    //console.log(error);
                 })
 
         })
     }
+
+    // Unregister for now
+    /*
+    "use strict";
+    if('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = registrations[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var registration = _step.value;
+
+                    registration.unregister();
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+        });
+    }
+    */
 </script>
 </html>

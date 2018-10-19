@@ -15,15 +15,18 @@ var sidebar_items = [
     },
     {
         name: "Informationen",
-        href: "/informationen"
+        href: "/informationen",
+        inactive: true
     },
     {
         name: "Extern",
-        href: "/extern"
+        href: "/extern",
+        inactive: true
     },
     {
         name: "Einstellungen",
-        href: "/settings"
+        href: "/settings",
+        inactive: true
     }
 ]
 
@@ -40,7 +43,7 @@ module.exports = {
     },
     view: function() {
         return sidebar_items.map(function(item) {
-                return m("a.sidebar-link", {href: item.href, oncreate: m.route.link, class: 'waves-button waves-light waves-block ' + (m.route.get().indexOf(item.href) >= 0 ? 'active' : '')}, item.name);
+                return item.inactive ? null : m("a.sidebar-link", {href: item.href, oncreate: m.route.link, class: 'waves-button waves-light waves-block ' + (m.route.get().indexOf(item.href) >= 0 ? 'active' : '')}, item.name);
             });
     }
 }

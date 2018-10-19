@@ -20,6 +20,19 @@ hr {
     border-right: 0px solid transparent;
 }
 
+/* CSS Variables */
+:root {
+    --background2: #fff;
+    --bodybackground: #f0f0fa;
+    --inputborder: #ddd;
+    --maincolor: #000;
+    --headings: #111;
+    --subtitles: #666;
+    --links: #c00000;
+    --menucolor: #fff;
+    --dividers: #ddd;
+}
+
 /* Waves */
 /*!
  * Waves v0.7.6
@@ -86,7 +99,8 @@ hr {
 html, body {
     font-family: 'PT Serif', 'Helvetica', sans-serif;
     font-size: 14px;
-    background-color: #f0f0fa;
+    background-color: var(--bodybackground);
+    color: var(--maincolor);
     padding: 0;
     margin: 0;
 }
@@ -162,7 +176,7 @@ body {
     overflow: hidden;
 }
 
-.slideout-open .slideout-menu {
+.slideout-open .slideout-menu, .d-block {
     display: block;
 }
 
@@ -197,7 +211,7 @@ body {
 /* Sidebar links */
 
 .sidebar-links {
-    margin-top: 4rem;
+    margin-top: 3rem;
 }
 
 .sidebar-link:first-of-type {
@@ -211,7 +225,7 @@ body {
     border-bottom: 1px solid rgba(255,255,255,.2);
     transition: all .3s ease;
     text-decoration: none;
-    color: #fff;
+    color: var(--menucolor);
     font-size: 1.2rem;
 }
 .sidebar-link:hover {
@@ -272,8 +286,8 @@ p {
 }
 
 .google-auth-button {
-    color: #222;
-    background-color: #fff;
+    color: var(--maincolor);
+    background-color: var(--background2);
     border-radius: 2px;
     padding: 0.5rem;
     display: inline-block;
@@ -322,7 +336,7 @@ p {
 
 .user-profile {
     display: flex;
-    color: #fff;
+    color: var(--menucolor);
 }
 
 .user-image-wrapper {
@@ -370,8 +384,8 @@ p {
 }
 
 .split-section-2 {
-    border-left: 1px solid #bbb;
-    background-color: #fff;
+    border-left: 1px solid var(--inputborder);
+    background-color: var(--background2);
 }
 
 .one-third {
@@ -383,8 +397,18 @@ p {
 }
 
 
-#split-view-controller {
+#split-view-controller, .d-flex {
     display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+    .d-md-flex {
+    display: flex;
+    }
 }
 
 /* Split view mobile functionality */
@@ -425,7 +449,7 @@ p {
 }
 
 .list-header {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--inputborder);
     padding: .5rem 1rem;
     /* background-image: linear-gradient(to right, #868f96 0%, #596164 100%); */
     background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
@@ -454,7 +478,7 @@ p {
 
 .module-list-item, .lecture-list .list-item {
     position: relative;
-    background-color: #fff;
+    background-color: var(--background2);
 }
 
 .module-list-item.disabled, .submodule.disabled {
@@ -513,7 +537,7 @@ p {
     right: 0;
     font-size: 1.4rem;
     padding: 0 5px;
-    color: #333;
+    color: var(--headings);
 }
 
 .modules-filter-fk, .modules-filter-graduation {
@@ -555,7 +579,7 @@ a, a:hover {
 .list-item-title {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #111;
+    color: var(--headings);
     margin: .5rem 0 .2rem;
 }
 
@@ -567,7 +591,7 @@ a, a:hover {
 .list-item-subtitle {
     font-size: 1.1rem;
     margin:0;
-    color: #666;
+    color: var(--subtitles);
 }
 
 .single-lecture .list-item-subtitle {
@@ -578,7 +602,7 @@ a, a:hover {
     max-width: 100px;
     margin: .8rem 0;
     border-bottom: 0px solid;
-    border-top: 1px solid #000;
+    border-top: 1px solid var(--maincolor);
 }
 
 .list-item-quick-info {
@@ -598,8 +622,8 @@ a, a:hover {
 }
 
 .list-item-area-divider {
-    border-color: #fff;
-    border-top: 1px solid #bbb;
+    border-color: var(--background2);
+    border-top: 1px solid var(--dividers);
     margin: .75rem 0;
 }
 
@@ -607,8 +631,8 @@ a, a:hover {
     margin-bottom: 0.3rem;
 }
 
-.single-lecture a {
-    color: #c00000;
+.single-lecture a, .external-link {
+    color: var(--links);
 }
 
 /* Timetable */
@@ -667,6 +691,8 @@ th:last-of-type, td:last-of-type {
 
 .filter {
     max-width: 100%;
+    border: 1px solid var(--inputborder);
+    margin-bottom: 3px;
 }
 
 @media screen and (min-width: 768px) {
@@ -679,9 +705,9 @@ th:last-of-type, td:last-of-type {
 
     .filter {
         margin-right: 10px;
-        border: 1px solid #ddd;
         max-width: 180px;
         padding: 0.25rem .4rem;
+        margin-bottom: 0;
     }
 
     .parent-height-desktop {
@@ -717,7 +743,7 @@ th:last-of-type, td:last-of-type {
 .single-nav {
     font-size: 2.5rem;
     display: flex;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--inputborder);
     min-height: 53px;
 }
 
@@ -950,7 +976,8 @@ th:last-of-type, td:last-of-type {
 }
 
 /* BOTTOM BARS ================================= */
-.bar 	{ position:relative; display:block; width:300px; }
+.bar 	{ position:relative; display:block; width: 500px;
+    max-width: 90%; }
 .bar:before, .bar:after 	{
     content:'';
     height:2px;
@@ -976,7 +1003,7 @@ th:last-of-type, td:last-of-type {
 
 body::after {
     content: "hbkapp.de by Fabian Mohr";
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     color: #fff;
@@ -994,4 +1021,30 @@ body::after {
 
 .font-weight-regular {
     font-weight: normal;
+}
+
+.external-content {
+    padding: 1rem;
+}
+
+.external-link {
+    line-height: 1.7
+}
+
+.external-link-category {
+    margin-right: 3rem;
+}
+
+select, input {
+    background-color: var(--background2);
+    color: var(--maincolor);
+}
+
+.theme-select-wrapper {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,.2)
+}
+
+.theme-select-label {
+    margin-right: 15px;
 }

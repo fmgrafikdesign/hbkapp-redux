@@ -32,15 +32,15 @@ module.exports = {
         if(!lecture) return;
 
         var datum_sonstiges = lecture.datum_sonstiges.length === 0 ? '' : ' | ' + lecture.datum_sonstiges ;
-        var anmeldeverfahren = lecture.anmeldeverfahren;
+        //var anmeldeverfahren = lecture.anmeldeverfahren;
 
         var regex = /(["'>:]?)([\w.-]+@[\w.-]+\.[\w.-]+)/gi;
-        if (anmeldeverfahren.indexOf('@') >= 0) {
+        /*if (anmeldeverfahren.indexOf('@') >= 0) {
             anmeldeverfahren = anmeldeverfahren.replace(regex, function($0, $1) {
                 return $1 ? $0 : '<a href="mailto:' + $0 + '">' + $0 + '</a>';
             })
 
-        }
+        }*/
 
         var beschraenkung = lecture.beschraenkung;
 
@@ -68,10 +68,14 @@ module.exports = {
         var fulltext = [];
 
         textsections.forEach(function(text) {
+            //text = text.replace('[nbsp]', '&nbsp')
             fulltext.push(m('p', m.trust(text)));
         });
 
         var fulltext_object = m('p.list-item-text', fulltext);
+
+        //console.log('anmeldefrist: ');
+        //console.log(lecture.anmeldefrist);
 
 
         return m('.list-item.single-lecture ' , [
@@ -101,7 +105,9 @@ module.exports = {
             m('hr.list-item-area-divider'),
 
             // How many cp and how to get them
-            m('p.list-item-proof', lecture.cp + ' CP durch: ' + lecture.leistungskontrolle.join(', ')),
+            lecture.cp.length > 0 ?
+            m('p.list-item-proof', lecture.cp.join('/') + ' durch: ' + lecture.leistungskontrolle.join(', '))
+            : m('p.list-item-proof', 'Keine ECTS erreichbar.'),
             m('hr.list-item-area-divider'),
 
             // Text
@@ -109,15 +115,15 @@ module.exports = {
             m('hr.list-item-area-divider'),
 
             // How to apply
-            lecture.anmeldeverfahren !== '' ? (m('p.list-item-apply-method', [m('i.icon.ion-checkmark'), m.trust(' ' + anmeldeverfahren)])) : '',
+            //lecture.anmeldeverfahren !== '' ? (m('p.list-item-apply-method', [m('i.icon.ion-checkmark'), m.trust(' ' + anmeldeverfahren)])) : '',
 
-            lecture.weblink !== '' ? m('p.list-item-weblink', [m('i.icon.ion-earth'), m.trust(' Weblink: ' + linkify(lecture.weblink))]) : '',
+            m(anmeldeverfahren(lecture)),
 
             // Apply until when
-            lecture.anmeldefrist !== '' ? (m('p.list-item-deadline', [m('i.icon.ion-ios-timer-outline'), ' Anmeldefrist: ' + lecture.anmeldefrist.replace('bis zum:', '')])) : '',
+            (lecture.anmeldefrist !== '' && lecture.anmeldefrist !== undefined) ? (m('p.list-item-deadline', [m('i.icon.ion-ios-timer-outline'), ' Anmeldefrist: ' + lecture.anmeldefrist.replace('bis zum:', '')])) : '',
 
             // Any restrictions
-            m('p.list-item-restriction', [m('i.icon.ion-alert-circled'), ' Beschränkung: ' + lecture.beschraenkung])
+            lecture.beschraenkung !== 'Keine Teilnahmebeschränkung.' ? ('p.list-item-restriction', [m('i.icon.ion-alert-circled'), ' Maximale Teilnehmerzahl: ' + lecture.beschraenkung]) : m('p.list-item-restriction', lecture.beschraenkung)
         ]);
     }
 };
@@ -138,4 +144,48 @@ function linkify(inputText) {
     replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
 
     return replacedText;
+}
+
+function anmeldeverfahren(lecture) {
+    var anmeldeverfahren = lecture.anmeldeverfahren;
+
+    var web;
+    if(anmeldeverfahren.web) {
+        web = m('p.list-item-apply-method', [m('i.icon.ion-earth'), m.trust(' Weblink: ' + linkify(lecture.anmeldeverfahren.web))]);
+    }
+
+    var phone;
+    if(anmeldeverfahren.telefon) {
+        phone = m('p.list-item-apply-method', [m('i.icon.ion-phone'), m.trust(' Per Telefon: ' + lecture.anmeldeverfahren.telefon)]);
+    }
+
+    var mail;
+    if(anmeldeverfahren.email) {
+        mail = m('p.list-item-apply-method', [m('i.icon.ion-android-mail'), m.trust(' Per Mail: ' + linkify(lecture.anmeldeverfahren.email))]);
+    }
+
+    var aushang;
+    if(anmeldeverfahren.aushang) {
+        aushang = m('.aushang', 'Per Aushang');
+    }
+
+
+    var anmeldung;
+    if(aushang !== undefined || phone !== undefined || web !== undefined) {
+        anmeldung = m('p', 'Anmeldeverfahren:')
+    }
+
+    return {
+        view: function() {
+            return [
+                anmeldung,
+                [
+                    web,
+                    mail,
+                    phone,
+                    aushang
+                ]
+            ]
+        }
+    }
 }

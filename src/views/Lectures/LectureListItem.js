@@ -30,7 +30,7 @@ module.exports = {
 
         return m('a', {
             href: prefix + lecture.id ,
-            class: 'list-item' + ((parseInt(vnode.attrs.lid) === lecture.id) ? ' active-lecture' : '') + (isfavorite ? ' favorite' : ''),
+            class: 'list-item' + ((parseInt(vnode.attrs.lid) === parseInt(lecture.id)) ? ' active-lecture' : '') + (isfavorite ? ' favorite' : ''),
             oncreate: m.route.link,
             onupdate: m.route.link,
             id: lecture.id,
@@ -47,7 +47,7 @@ module.exports = {
                 m('hr.list-item-divider')
             ]),
 
-            m('p.list-item-quick-info', lecture.profs.join(', ') + ' | ' + lecture.typ.join(', ')),
+            m('p.list-item-quick-info', lecture.profs.join(', ') + ' | ' + lecture.typ.join(', ') + (lecture.cp.length > 0 ? (' (' + lecture.cp.join(', ') + ')') : '')),
             m('p.list-item-text-intro', m.trust(lecture.excerpt + (lecture.excerpt.length === lecture.fulltext.length ? '' : '...')))
         ]);
     }

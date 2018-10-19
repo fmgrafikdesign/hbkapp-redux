@@ -3,12 +3,14 @@ var Lectures = require("./views/Lectures/Lectures");
 var Modules = require('./views/MyModules/Modules');
 var Information = require('./views/Information')
 var Layout = require ('./views/Layout');
-var Extern = require ('./views/Extern');
+var Extern = require ('./views/External/Extern');
 var Settings = require ('./views/Settings');
 /* var MyLectures = require('./views/MyLectures'); */
 var StateLectures = require('./models/StateLectures');
 var LecturesFilter = require('./models/LecturesFilter');
 var MyLecturesFilter = require('./models/MyLecturesFilter');
+
+var GlobalSettings = require('./globals');
 
 if (StateLectures.lectures.length === 0) {
     StateLectures.loadLectures();

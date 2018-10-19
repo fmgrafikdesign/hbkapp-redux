@@ -2,6 +2,7 @@ var m = require('mithril');
 var LecturesFilter = require('./LecturesFilter');
 var MyLecturesFilter = require('./MyLecturesFilter');
 //var ModulesDetail = require('../views/MyModules/ModulesDetail');
+var settings = require('../globals');
 
 var StateLectures = {
 
@@ -74,8 +75,10 @@ var StateLectures = {
         var requestLectures = function () {
             m.request({
                 method: "GET",
-                url: "https://hbkapp.fmgrafikdesign.de/vorlesungen.json"
+                url: settings.vorlesungen_url + '?nocache=' + (new Date()).getTime()
             }).then(function (result) {
+
+                //console.log(result);
 
                 StateLectures.lectures = result;
                 // Cache lectures
@@ -89,10 +92,13 @@ var StateLectures = {
                 if (storageAvailable('localStorage')) {
                     m.request({
                         method: "GET",
-                        url: "https://hbkapp.fmgrafikdesign.de/checksum.txt"
+                        url: settings.vorlesungen_checksum_url + '?nocache=' + (new Date()).getTime()
                     }).then(function (result) {
                         // Cache checksum
                         localStorage.setItem('checksum', result);
+                    }).catch(function(e) {
+                        console.log('request failed, error:');
+                        console.log(e);
                     });
                 }
             })
@@ -106,11 +112,13 @@ var StateLectures = {
                 // Request current checksum from server
                 m.request({
                     method: "GET",
-                    url: "https://hbkapp.fmgrafikdesign.de/checksum.txt"
+                    url: settings.vorlesungen_checksum_url + '?nocache=' + (new Date()).getTime()
                 }).then(function (result) {
+                    //console.log('checksum result:');
+                    //console.log(result);
                     // If received checksum equals current, we're up to date and can abort
                     if (result == checksum) {
-                        //console.log('lectures up to date');
+                        //console.log('lectures up to date, using cache');
                         StateLectures.lectures = JSON.parse(localStorage.getItem('lectures'));
                         StateLectures.loaded();
                     }
@@ -118,6 +126,16 @@ var StateLectures = {
                         //console.log('lectures not up to date, requesting...');
                         requestLectures();
                     }
+                }).catch(function(e) {
+                    //console.log('request failed, error:');
+                    //console.log(e);
+
+                    // use cache if everything else fails
+                    StateLectures.lectures = JSON.parse(localStorage.getItem('lectures'));
+
+                    // call loaded event
+                    StateLectures.loaded();
+
                 });
             } else {
                 requestLectures();
@@ -150,9 +168,11 @@ var StateLectures = {
     },
     getLecture: function (lid) {
         //console.log('getting lecture with lid ' + lid);
+        //console.log(StateLectures.lectures);
         var lecture = StateLectures.lectures.find(function (lecture) {
-            return lecture.id === parseInt(lid);
+            return parseInt(lecture.id) === parseInt(lid);
         });
+        //console.log('found lecture:');
         //console.log(lecture);
 
         //TODO if lecture is not found in currently available lectures, request from database
@@ -182,7 +202,7 @@ var StateLectures = {
         //console.log('trying to find lid in favorites:');
         var result = StateLectures.myLectures.find(function(lecture) {
             if((!lecture) || !lecture.id) return false;
-            return lecture.id === parseInt(lid);
+            return parseInt(lecture.id) === parseInt(lid);
         });
         //console.log(result);
         return result;

@@ -10,6 +10,14 @@
           <option name="port" value="21" />
         </fileTransfer>
       </webServer>
+      <webServer id="c3aa8415-b6b1-405a-81d6-78abdc2fa1b7" name="uberspace" url="http://hbkapp.de">
+        <fileTransfer host="hbkapp.de" port="22" rootFolder="/var/www/virtual/fabianm/www.hbkapp.de" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>
